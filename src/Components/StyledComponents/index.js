@@ -159,11 +159,100 @@ export const UserOnlineStatus = styled.div`
   color: #c1c1c1;
 `;
 
-export const WallContainer = styled.div`
+export const UserOnlineIcon = styled.div`
   position: absolute;
-  top: 251px;
+  top: 35px;
+  left: 277px;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background: #ffb11b;
+`;
+
+export const WallContainer = styled.div`
+  position: relative;
+  //top: 251px;
+  top: -100px;
   width: 1291px;
   height: 1000px;
   background: #ffffff;
   border-radius: 15px 15px 0px 0px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const StatusContainer = styled.div`
+  width: 530px;
+  margin-left: 103px;
+  margin-top: 149px;
+  //border: 1px solid black;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #515151;
+`;
+
+export const WallInfoBlock = styled.div`
+  width: 1086px;
+  height: 511px;
+  margin-left: 103px;
+  margin-top: 25px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const WallInfoUserAbout = styled.div`
+  width: 531px;
+  height: 511px;
+  border-top: 1px solid #515151;
+`;
+
+export const InfoHeaderText = styled.div`
+  margin-top: 47px;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+`;
+
+export const InfoHeaderTextBlock = styled.div`
+  width: 530px;
+  margin-top: 47px;
+  display: flex;
+`;
+
+export const InfoHeaderTextLeftBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InfoHeaderTextRightBlock = styled.div`
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InfoHeaderListItemLeft = styled.div`
+  margin-bottom: 23px;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #515151;
+`;
+
+export const InfoHeaderListItemRight = styled.div`
+  margin-bottom: 23px;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
 `;

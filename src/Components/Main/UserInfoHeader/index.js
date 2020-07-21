@@ -11,6 +11,7 @@ import {
   UserName,
   UserProfession,
   UserOnlineStatus,
+  UserOnlineIcon,
 } from '../../StyledComponents';
 
 const UserInfoHeader = () => (
@@ -18,6 +19,7 @@ const UserInfoHeader = () => (
     <UserInfoAvatar>
       <Avatar img={avatar} />
       <AddPhotoIcon img={addPhotoIcon} />
+      <UserOnlineIcon />
     </UserInfoAvatar>
     <UserInfoNameBlock>
       <UserName>Богдан Леста</UserName>
