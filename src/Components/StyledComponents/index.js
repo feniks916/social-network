@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+const bgColorBlack = '#111111';
+
 export const HeaderContainer = styled.div`
-  background: #111111;
+  background: ${bgColorBlack};
   height: 109px;
   color: white;
   display: flex;
@@ -63,7 +65,7 @@ export const MainContainer = styled.div`
 `;
 
 export const LeftBlockContainer = styled.div`
-  background: #111111;
+  background: ${bgColorBlack};
   width: 27%;
   height: 100vh;
   color: white;
@@ -71,9 +73,57 @@ export const LeftBlockContainer = styled.div`
 `;
 
 export const RightBlockContainer = styled.div`
-  background: #e5e5e5;
+  background: ${bgColorBlack};
+  position: relative;
   width: 73%;
   height: 100vh;
   color: white;
   display: flex;
+  border: solid 1px wheat;
+`;
+
+export const UserInfoHeaderContainer = styled.div`
+  // background: ${bgColorBlack};
+  margin-left: 75px;
+  position: relative;
+  width: 593px;
+  height: 344px;
+  display: flex;
+  justify-content: space-between;
+  border: solid 1px wheat;
+`;
+
+export const UserInfoAvatar = styled.div`
+  //position: absolute;
+  width: 340px;
+  height: 340px;
+  border: solid 1px wheat;
+  border-radius: 170px;
+`;
+
+export const UserInfoName = styled.div`
+  width: 253px;
+  height: 340px;
+  border: solid 1px wheat;
+`;
+
+export const Avatar = styled.img.attrs((props) => ({ src: props.img }))`
+  width: 340px;
+  height: 340px;
+  border-radius: 170px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const AddPhotoIcon = styled.img.attrs((props) => ({ src: props.img }))`
+  position: absolute;
+  left: 230px;
+  bottom: -28px;
+  width: 110px;
+  height: 110px;
+  border-radius: 55px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
