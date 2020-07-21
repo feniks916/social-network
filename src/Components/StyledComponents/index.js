@@ -55,4 +55,25 @@ export const InputHeader = styled.input`
   border-bottom: 1px solid #ffb11b;
   color: white;
   outline: none !important;
+  font-size: 24px;
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+`;
+
+export const LeftBlockContainer = styled.div`
+  background: #111111;
+  width: 27%;
+  height: 100vh;
+  color: white;
+  display: flex;
+`;
+
+export const RightBlockContainer = styled.div`
+  background: #e5e5e5;
+  width: 73%;
+  height: 100vh;
+  color: white;
+  display: flex;
 `;
