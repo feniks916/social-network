@@ -16,7 +16,9 @@
     "react/jsx-props-no-spreading": ["off"],
     "curly": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "linebreak-style": ["off"]
+
   },
   "settings": {
     "react": {
