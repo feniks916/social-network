@@ -78,8 +78,6 @@ export const RightBlockContainer = styled.div`
   width: 73%;
   height: 100vh;
   color: white;
-  display: flex;
-  border: solid 1px wheat;
 `;
 
 export const UserInfoHeaderContainer = styled.div`
@@ -90,20 +88,18 @@ export const UserInfoHeaderContainer = styled.div`
   height: 344px;
   display: flex;
   justify-content: flex-start;
-  border: solid 1px wheat;
+  z-index: 10;
 `;
 
 export const UserInfoAvatar = styled.div`
   //position: absolute;
   width: 340px;
   height: 340px;
-  border: solid 1px wheat;
   border-radius: 170px;
 `;
 
 export const UserInfoNameBlock = styled.div`
   height: 340px;
-  border: solid 1px wheat;
   display: flex;
   flex-direction: column;
 `;
@@ -125,7 +121,6 @@ export const AddPhotoIcon = styled.img.attrs((props) => ({ src: props.img }))`
   width: 110px;
   height: 110px;
   border-radius: 55px;
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
   &:hover {
     cursor: pointer;
   }
@@ -162,4 +157,13 @@ export const UserOnlineStatus = styled.div`
   font-size: 16px;
   line-height: 20px;
   color: #c1c1c1;
+`;
+
+export const WallContainer = styled.div`
+  position: absolute;
+  top: 251px;
+  width: 1291px;
+  height: 1000px;
+  background: #ffffff;
+  border-radius: 15px 15px 0px 0px;
 `;
