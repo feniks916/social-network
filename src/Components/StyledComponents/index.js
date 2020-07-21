@@ -86,10 +86,10 @@ export const UserInfoHeaderContainer = styled.div`
   // background: ${bgColorBlack};
   margin-left: 75px;
   position: relative;
-  width: 593px;
+  width: 800px;
   height: 344px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   border: solid 1px wheat;
 `;
 
@@ -101,16 +101,18 @@ export const UserInfoAvatar = styled.div`
   border-radius: 170px;
 `;
 
-export const UserInfoName = styled.div`
-  width: 253px;
+export const UserInfoNameBlock = styled.div`
   height: 340px;
   border: solid 1px wheat;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Avatar = styled.img.attrs((props) => ({ src: props.img }))`
   width: 340px;
   height: 340px;
   border-radius: 170px;
+  box-shadow: 9px 9px 25px rgba(0, 0, 0, 0.25);
   &:hover {
     cursor: pointer;
   }
@@ -123,7 +125,41 @@ export const AddPhotoIcon = styled.img.attrs((props) => ({ src: props.img }))`
   width: 110px;
   height: 110px;
   border-radius: 55px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const UserName = styled.div`
+  margin-top: 136px;
+  margin-left: 32px;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 37px;
+  color: #ffffff;
+`;
+
+export const UserProfession = styled.div`
+  margin-top: 13px;
+  margin-left: 32px;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #c1c1c1;
+`;
+
+export const UserOnlineStatus = styled.div`
+  margin-top: 91px;
+  margin-left: 32px;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #c1c1c1;
 `;

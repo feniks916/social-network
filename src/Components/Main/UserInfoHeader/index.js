@@ -5,9 +5,12 @@ import addPhotoIcon from './img/add photo.svg';
 import {
   UserInfoHeaderContainer,
   UserInfoAvatar,
-  UserInfoName,
+  UserInfoNameBlock,
   Avatar,
   AddPhotoIcon,
+  UserName,
+  UserProfession,
+  UserOnlineStatus,
 } from '../../StyledComponents';
 
 const UserInfoHeader = () => (
@@ -16,7 +19,11 @@ const UserInfoHeader = () => (
       <Avatar img={avatar} />
       <AddPhotoIcon img={addPhotoIcon} />
     </UserInfoAvatar>
-    <UserInfoName />
+    <UserInfoNameBlock>
+      <UserName>Богдан Леста</UserName>
+      <UserProfession>Frontend разработчик</UserProfession>
+      <UserOnlineStatus>был 20.07.2020 в 15:07</UserOnlineStatus>
+    </UserInfoNameBlock>
   </UserInfoHeaderContainer>
 );
 
