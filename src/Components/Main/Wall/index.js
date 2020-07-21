@@ -1,5 +1,10 @@
 import React from 'react';
 
+import photo1 from './img/photo 1.png';
+import photo2 from './img/photo 2.png';
+import photo3 from './img/photo 3.png';
+import photo4 from './img/photo 4.png';
+
 import {
   WallContainer,
   StatusContainer,
@@ -11,12 +16,14 @@ import {
   InfoHeaderTextLeftBlock,
   InfoHeaderTextRightBlock,
   InfoHeaderListItemRight,
+  InfoPhotoBlock,
+  InfoUserPhoto,
 } from '../../StyledComponents';
 
 const leftBlockItems = [
   'День рождения',
   'Образование',
-  'Образование',
+  'Профессия',
   'Язык',
   'Город',
   'Личная информация',
@@ -38,15 +45,24 @@ const Wall = () => (
         <InfoHeaderTextBlock>
           <InfoHeaderTextLeftBlock>
             {leftBlockItems.map((el) => (
-              <InfoHeaderListItemLeft>{el}</InfoHeaderListItemLeft>
+              <InfoHeaderListItemLeft key={el}>{el}</InfoHeaderListItemLeft>
             ))}
           </InfoHeaderTextLeftBlock>
           <InfoHeaderTextRightBlock>
             {rigtBlockItems.map((el) => (
-              <InfoHeaderListItemRight>{el}</InfoHeaderListItemRight>
+              <InfoHeaderListItemRight key={el}>{el}</InfoHeaderListItemRight>
             ))}
           </InfoHeaderTextRightBlock>
         </InfoHeaderTextBlock>
+      </WallInfoUserAbout>
+      <WallInfoUserAbout>
+        <InfoHeaderText>Фотографии</InfoHeaderText>
+        <InfoPhotoBlock>
+          <InfoUserPhoto img={photo1} />
+          <InfoUserPhoto img={photo2} />
+          <InfoUserPhoto img={photo3} />
+          <InfoUserPhoto img={photo4} />
+        </InfoPhotoBlock>
       </WallInfoUserAbout>
     </WallInfoBlock>
   </WallContainer>

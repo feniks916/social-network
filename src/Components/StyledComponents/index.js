@@ -199,7 +199,6 @@ export const WallInfoBlock = styled.div`
   height: 511px;
   margin-left: 103px;
   margin-top: 25px;
-  border: 1px solid black;
   display: flex;
   justify-content: space-between;
 `;
@@ -255,4 +254,25 @@ export const InfoHeaderListItemRight = styled.div`
   font-size: 16px;
   line-height: 20px;
   color: #000000;
+`;
+
+export const InfoPhotoBlock = styled.div`
+  margin-top: 55px;
+  width: 560px;
+  //width: 600px;
+  height: 350px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+`;
+
+export const InfoUserPhoto = styled.img.attrs((props) => ({ src: props.img }))`
+  width: 256px;
+  height: 162px;
+  margin-right: 22px;
+  //margin-bottom: 22px;
+  border-radius: 15px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
