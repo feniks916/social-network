@@ -26,9 +26,33 @@ export const IconHeader = styled.img.attrs((props) => ({ src: props.img }))`
     cursor: pointer;
   }
 `;
+export const IconSearch = styled.img.attrs((props) => ({ src: props.img }))`
+  height: 30px;
+  width: 30px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 export const RightBlockHeader = styled.div`
   margin-right: 110px;
   margin-top: 58px;
   display: flex;
+`;
+
+export const ButtonSearch = styled.button`
+  background: none;
+  border: none;
+  margin-bottom: 20px;
+  outline: none !important;
+`;
+
+export const InputHeader = styled.input`
+  width: 295px;
+  margin-left: 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #ffb11b;
+  color: white;
+  outline: none !important;
 `;
