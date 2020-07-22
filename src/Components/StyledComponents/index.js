@@ -8,6 +8,9 @@ export const HeaderContainer = styled.div`
   color: white;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  position: fixed;
+  z-index: 15;
 `;
 
 export const Logo = styled.img.attrs((props) => ({ src: props.img }))`
@@ -65,20 +68,24 @@ export const MainContainer = styled.div`
 `;
 
 export const LeftBlockContainer = styled.div`
+  margin-top: 109px;
+  position: fixed;
   background: ${bgColorBlack};
   width: 27%;
   min-height: 100%;
   padding: 1px;
   color: white;
-  display: flex;
+  //display: flex;
 `;
 
 export const RightBlockContainer = styled.div`
+  margin-left: 27%;
   background: ${bgColorBlack};
   position: relative;
   width: 73%;
   height: 100%;
   color: white;
+  margin-top: 109px;
 `;
 
 export const UserInfoHeaderContainer = styled.div`
@@ -348,3 +355,40 @@ export const ButtonMore = styled.img.attrs((props) => ({ src: props.img }))`
     cursor: pointer;
   }
 `;
+
+// Sidebar
+
+// const Wrapper = styled.div`
+//   max-width: 280px;
+//   width: 100%;
+//   background-color: #111;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// `;
+//
+// const List = styled.ul`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: flex-start;
+//   padding: 0;
+//   margin: 0 0 40px 0;
+// `;
+
+// const ItemLink = styled(link)`
+//   font-family: Montserrat,serif;
+//   font-style: normal;
+//   font-weight: normal;
+//   font-size: 16px;
+//   line-height: 20px;
+//   color: #ffffff;
+//   text-decoration: none;
+//   &:not(:last-child) {
+//     margin-bottom: 24px;
+//   }
+//   &:hover {
+//     color: #ffb11b;
+//   }
+// `;

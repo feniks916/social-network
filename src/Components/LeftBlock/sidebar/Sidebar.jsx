@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import Player from './Player';
 
 const Wrapper = styled.div`
+  margin-top: 150px;
+  margin-left: 60px;
   max-width: 280px;
   width: 100%;
   background-color: #111;
@@ -22,7 +24,7 @@ const List = styled.ul`
   margin: 0 0 40px 0;
 `;
 const ItemLink = styled(Link)`
-  font-family: Montserrat;
+  font-family: Montserrat,serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -42,16 +44,16 @@ const ItemLink = styled(Link)`
 const Sidebar = () => (
   <Wrapper>
     <List>
-      <ItemLink to="#">Моя страница</ItemLink>
-      <ItemLink to="#">Друзья</ItemLink>
-      <ItemLink to="#">Сообщения</ItemLink>
-      <ItemLink to="#">Новости</ItemLink>
-      <ItemLink to="#">Закладки</ItemLink>
-      <ItemLink to="#">Группы</ItemLink>
-      <ItemLink to="#">Фотографии</ItemLink>
-      <ItemLink to="#">Видеозаписи</ItemLink>
-      <ItemLink to="#">Аудиозаписи</ItemLink>
-      <ItemLink to="#">Настройки</ItemLink>
+        <ItemLink to="#">Моя страница</ItemLink>
+        <ItemLink to="#">Друзья</ItemLink>
+        <ItemLink to="#">Сообщения</ItemLink>
+        <ItemLink to="#">Новости</ItemLink>
+        <ItemLink to="#">Закладки</ItemLink>
+        <ItemLink to="#">Группы</ItemLink>
+        <ItemLink to="#">Фотографии</ItemLink>
+        <ItemLink to="#">Видеозаписи</ItemLink>
+        <ItemLink to="#">Аудиозаписи</ItemLink>
+        <ItemLink to="#">Настройки</ItemLink>
     </List>
     <Player />
   </Wrapper>
