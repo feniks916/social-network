@@ -67,7 +67,9 @@ export const MainContainer = styled.div`
 export const LeftBlockContainer = styled.div`
   background: ${bgColorBlack};
   width: 27%;
-  height: 100vh;
+  min-height: 100%;
+  padding: 1px;
+  //height: 200vh;
   color: white;
   display: flex;
 `;
@@ -76,7 +78,7 @@ export const RightBlockContainer = styled.div`
   background: ${bgColorBlack};
   position: relative;
   width: 73%;
-  height: 100vh;
+  height: 100%;
   color: white;
 `;
 
@@ -174,7 +176,7 @@ export const WallContainer = styled.div`
   //top: 251px;
   top: -100px;
   width: 1291px;
-  height: 1000px;
+  height: 2000px;
   background: #ffffff;
   border-radius: 15px 15px 0px 0px;
   display: flex;
@@ -275,4 +277,75 @@ export const InfoUserPhoto = styled.img.attrs((props) => ({ src: props.img }))`
   &:hover {
     cursor: pointer;
   }
+`;
+
+// Wall Create Article
+export const WallCreateArticleContainer = styled.div`
+  margin-top: 49px;
+  margin-left: 103px;
+  width: 1086px;
+  height: 930px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #515151;
+  border-bottom: 1px solid #515151;
+`;
+
+export const WallCreateArticleHeaderBlock = styled.div`
+  margin-top: 47px;
+  width: 1086px;
+  height: 100px;
+  display: flex;
+  border: 1px solid #515151;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const WallCreateArticleHeaderBlockLeft = styled.div`
+  display: flex;
+`;
+
+export const AvatarMin = styled.img.attrs((props) => ({ src: props.img }))`
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const WallCreateArticleHeaderBlockLeftText = styled.div`
+  margin-left: 24px;
+  margin-top: 25px;
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #515151;
+`;
+
+export const WallCreateArticleHeaderBlockRight = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const IconArticle = styled.img.attrs((props) => ({ src: props.img }))`
+  margin-left: 13px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ArticleName = styled.div`
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 160.9%;
+  color: #000000;
+  flex: none;
+  order: 0;
+  align-self: flex-start;
+  margin: 0px 22px;
 `;

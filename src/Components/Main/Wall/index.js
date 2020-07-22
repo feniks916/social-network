@@ -19,6 +19,7 @@ import {
   InfoPhotoBlock,
   InfoUserPhoto,
 } from '../../StyledComponents';
+import WallCreateArticle from '../WallCreateArticle';
 
 const leftBlockItems = [
   'День рождения',
@@ -65,6 +66,7 @@ const Wall = () => (
         </InfoPhotoBlock>
       </WallInfoUserAbout>
     </WallInfoBlock>
+    <WallCreateArticle />
   </WallContainer>
 );
 
