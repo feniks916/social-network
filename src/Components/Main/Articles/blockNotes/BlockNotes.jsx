@@ -8,17 +8,11 @@ import Note from './Note';
 const Wrapper = styled.div`
   border-bottom: 1px solid #515151;
   margin-left: 106px;
-  margin-bottom: 100px;
+  //margin-bottom: 100px;
   max-width: 83.6%;
-  font-family: Montserrat;
+  font-family: Montserrat,serif;
   font-style: normal;
 `;
-const Line = styled.div`
-  border: 1px solid #515151;
-  padding: 0;
-  width: 100%;
-`;
-
 const MenuWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -119,7 +113,6 @@ const BlockNotes = () => {
         </Menu>
         {renderSearch()}
       </MenuWrapper>
-      {/*<Line />*/}
       <UserNote />
       <Note />
       <TagsList>
@@ -127,7 +120,6 @@ const BlockNotes = () => {
           <TagItem key={item.id}>{item.tag}</TagItem>
         ))}
       </TagsList>
-      {/*<Line />*/}
     </Wrapper>
   );
 };

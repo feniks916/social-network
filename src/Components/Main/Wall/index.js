@@ -21,6 +21,7 @@ import {
 import WallCreateArticle from '../WallCreateArticle';
 import FormStatus from './FormStatus';
 import BlockNotes from '../Articles/blockNotes/BlockNotes';
+import BlockComments from '../Articles/blockComment/BlockComments';
 
 const leftBlockItems = [
   'День рождения',
@@ -69,6 +70,7 @@ const Wall = () => (
     </WallInfoBlock>
     <WallCreateArticle />
     <BlockNotes />
+    <BlockComments />
   </WallContainer>
 );
 

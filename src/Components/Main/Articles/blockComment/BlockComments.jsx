@@ -18,11 +18,15 @@ const arrayComments = [
 ];
 
 const Wrapper = styled.div`
+  margin-left: 106px;
+  width: 79%;
   padding: 40px 0 40px 60px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  border-bottom: 1px solid #515151;
+  margin-bottom: 50px;
 `;
 const Title = styled.div`
   font-weight: 500;
