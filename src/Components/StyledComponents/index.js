@@ -296,7 +296,6 @@ export const WallCreateArticleHeaderBlock = styled.div`
   width: 1086px;
   height: 100px;
   display: flex;
-  border: 1px solid #515151;
   align-items: center;
   justify-content: space-between;
 `;
@@ -338,14 +337,11 @@ export const IconArticle = styled.img.attrs((props) => ({ src: props.img }))`
 `;
 
 export const ArticleName = styled.div`
-  font-family: Montserrat;
+  margin-top: 40px;
+  font-family: Montserrat, serif;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 160.9%;
   color: #000000;
-  flex: none;
-  order: 0;
-  align-self: flex-start;
-  margin: 0px 22px;
 `;

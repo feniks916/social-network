@@ -16,6 +16,7 @@ import {
   WallCreateArticleHeaderBlockRight,
   IconArticle,
 } from '../../StyledComponents';
+import ArticleForm from '../ArticleForm';
 
 const WallCreateArticle = () => (
   <WallCreateArticleContainer>
@@ -34,6 +35,7 @@ const WallCreateArticle = () => (
         <IconArticle img={dots} />
       </WallCreateArticleHeaderBlockRight>
     </WallCreateArticleHeaderBlock>
+    <ArticleForm />
   </WallCreateArticleContainer>
 );
 
