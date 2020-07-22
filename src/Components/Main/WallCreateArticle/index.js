@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import avatar from '../UserInfoHeader/img/main photo.png';
 import photo from './img/photo.svg';
@@ -6,6 +6,7 @@ import music from './img/music.svg';
 import video from './img/video.svg';
 import note from './img/note.svg';
 import dots from './img/dots.svg';
+import add from './img/add.svg';
 
 import {
   WallCreateArticleContainer,
@@ -18,25 +19,38 @@ import {
 } from '../../StyledComponents';
 import ArticleForm from '../ArticleForm';
 
-const WallCreateArticle = () => (
-  <WallCreateArticleContainer>
-    <WallCreateArticleHeaderBlock>
-      <WallCreateArticleHeaderBlockLeft>
-        <AvatarMin img={avatar} />
-        <WallCreateArticleHeaderBlockLeftText>
-          Напишите заметку или статью...
-        </WallCreateArticleHeaderBlockLeftText>
-      </WallCreateArticleHeaderBlockLeft>
-      <WallCreateArticleHeaderBlockRight>
-        <IconArticle img={photo} />
-        <IconArticle img={music} />
-        <IconArticle img={video} />
-        <IconArticle img={note} />
-        <IconArticle img={dots} />
-      </WallCreateArticleHeaderBlockRight>
-    </WallCreateArticleHeaderBlock>
-    <ArticleForm />
-  </WallCreateArticleContainer>
+const renderIcons = () => (
+  <>
+    <IconArticle img={photo} />
+    <IconArticle img={music} />
+    <IconArticle img={video} />
+    <IconArticle img={note} />
+    <IconArticle img={dots} />
+  </>
 );
+
+const WallCreateArticle = () => {
+  const [isOpen, setOpen] = useState(false);
+
+  const changeOpen = () => setOpen(false);
+  const renderArticleForm = () => <ArticleForm changeOpen={changeOpen} />;
+  const renderPlus = () => <IconArticle img={add} onClick={() => setOpen(true)} />;
+  return (
+    <WallCreateArticleContainer>
+      <WallCreateArticleHeaderBlock>
+        <WallCreateArticleHeaderBlockLeft>
+          <AvatarMin img={avatar} />
+          <WallCreateArticleHeaderBlockLeftText>
+            Напишите заметку или статью...
+          </WallCreateArticleHeaderBlockLeftText>
+        </WallCreateArticleHeaderBlockLeft>
+        <WallCreateArticleHeaderBlockRight>
+          {isOpen ? renderIcons() : renderPlus()}
+        </WallCreateArticleHeaderBlockRight>
+      </WallCreateArticleHeaderBlock>
+      {isOpen ? renderArticleForm() : null}
+    </WallCreateArticleContainer>
+  );
+};
 
 export default WallCreateArticle;

@@ -284,15 +284,15 @@ export const WallCreateArticleContainer = styled.div`
   margin-top: 49px;
   margin-left: 103px;
   width: 1086px;
-  height: 930px;
   display: flex;
   flex-direction: column;
   border-top: 1px solid #515151;
   border-bottom: 1px solid #515151;
+  padding-bottom: 40px;
 `;
 
 export const WallCreateArticleHeaderBlock = styled.div`
-  margin-top: 47px;
+  margin-top: 27px;
   width: 1086px;
   height: 100px;
   display: flex;
@@ -337,11 +337,22 @@ export const IconArticle = styled.img.attrs((props) => ({ src: props.img }))`
 `;
 
 export const ArticleName = styled.div`
-  margin-top: 40px;
+  margin-top: 20px;
   font-family: Montserrat, serif;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 160.9%;
   color: #000000;
+`;
+
+// Article Form
+
+export const ButtonMore = styled.img.attrs((props) => ({ src: props.img }))`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  &:hover {
+    cursor: pointer;
+  }
 `;
