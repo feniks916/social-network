@@ -358,37 +358,22 @@ export const ButtonMore = styled.img.attrs((props) => ({ src: props.img }))`
 
 // Sidebar
 
-// const Wrapper = styled.div`
-//   max-width: 280px;
-//   width: 100%;
-//   background-color: #111;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// `;
-//
-// const List = styled.ul`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: flex-start;
-//   padding: 0;
-//   margin: 0 0 40px 0;
-// `;
-
-// const ItemLink = styled(link)`
-//   font-family: Montserrat,serif;
-//   font-style: normal;
-//   font-weight: normal;
-//   font-size: 16px;
-//   line-height: 20px;
-//   color: #ffffff;
-//   text-decoration: none;
-//   &:not(:last-child) {
-//     margin-bottom: 24px;
-//   }
-//   &:hover {
-//     color: #ffb11b;
-//   }
-// `;
+export const Wrapper = styled.div`
+  margin-top: 150px;
+  margin-left: 60px;
+  max-width: 280px;
+  width: 100%;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0 0 40px 0;
+`;
