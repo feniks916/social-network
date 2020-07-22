@@ -7,7 +7,6 @@ import photo4 from './img/photo 4.png';
 
 import {
   WallContainer,
-  StatusContainer,
   WallInfoBlock,
   WallInfoUserAbout,
   InfoHeaderText,
@@ -20,6 +19,7 @@ import {
   InfoUserPhoto,
 } from '../../StyledComponents';
 import WallCreateArticle from '../WallCreateArticle';
+import FormStatus from './FormStatus';
 
 const leftBlockItems = [
   'День рождения',
@@ -39,7 +39,7 @@ const rigtBlockItems = [
 ];
 const Wall = () => (
   <WallContainer>
-    <StatusContainer>Обновите свой статус...</StatusContainer>
+    <FormStatus />
     <WallInfoBlock>
       <WallInfoUserAbout>
         <InfoHeaderText>О себе</InfoHeaderText>

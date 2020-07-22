@@ -69,7 +69,6 @@ export const LeftBlockContainer = styled.div`
   width: 27%;
   min-height: 100%;
   padding: 1px;
-  //height: 200vh;
   color: white;
   display: flex;
 `;
@@ -83,7 +82,6 @@ export const RightBlockContainer = styled.div`
 `;
 
 export const UserInfoHeaderContainer = styled.div`
-  // background: ${bgColorBlack};
   margin-left: 75px;
   position: relative;
   width: 800px;
@@ -94,7 +92,6 @@ export const UserInfoHeaderContainer = styled.div`
 `;
 
 export const UserInfoAvatar = styled.div`
-  //position: absolute;
   width: 340px;
   height: 340px;
   border-radius: 170px;
@@ -173,7 +170,6 @@ export const UserOnlineIcon = styled.div`
 
 export const WallContainer = styled.div`
   position: relative;
-  //top: 251px;
   top: -100px;
   width: 1291px;
   height: 2000px;
@@ -187,7 +183,6 @@ export const StatusContainer = styled.div`
   width: 530px;
   margin-left: 103px;
   margin-top: 149px;
-  //border: 1px solid black;
   font-family: Montserrat, serif;
   font-style: normal;
   font-weight: normal;
@@ -261,7 +256,6 @@ export const InfoHeaderListItemRight = styled.div`
 export const InfoPhotoBlock = styled.div`
   margin-top: 55px;
   width: 560px;
-  //width: 600px;
   height: 350px;
   display: flex;
   flex-wrap: wrap;
@@ -272,7 +266,6 @@ export const InfoUserPhoto = styled.img.attrs((props) => ({ src: props.img }))`
   width: 256px;
   height: 162px;
   margin-right: 22px;
-  //margin-bottom: 22px;
   border-radius: 15px;
   &:hover {
     cursor: pointer;
@@ -347,7 +340,6 @@ export const ArticleName = styled.div`
 `;
 
 // Article Form
-
 export const ButtonMore = styled.img.attrs((props) => ({ src: props.img }))`
   position: absolute;
   right: 0;

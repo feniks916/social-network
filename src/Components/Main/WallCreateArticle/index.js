@@ -19,15 +19,10 @@ import {
 } from '../../StyledComponents';
 import ArticleForm from '../ArticleForm';
 
-const renderIcons = () => (
-  <>
-    <IconArticle img={photo} />
-    <IconArticle img={music} />
-    <IconArticle img={video} />
-    <IconArticle img={note} />
-    <IconArticle img={dots} />
-  </>
-);
+const renderIcons = () => {
+  const icons = [photo, music, video, note, dots];
+  return icons.map((el) => <IconArticle img={el} key={el} />);
+};
 
 const WallCreateArticle = () => {
   const [isOpen, setOpen] = useState(false);
@@ -35,6 +30,7 @@ const WallCreateArticle = () => {
   const changeOpen = () => setOpen(false);
   const renderArticleForm = () => <ArticleForm changeOpen={changeOpen} />;
   const renderPlus = () => <IconArticle img={add} onClick={() => setOpen(true)} />;
+
   return (
     <WallCreateArticleContainer>
       <WallCreateArticleHeaderBlock>

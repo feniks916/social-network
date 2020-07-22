@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { RightBlockContainer } from '../../StyledComponents';
-import UserInfoHeader from '../UserInfoHeader';
-import Wall from '../Wall';
+import { RightBlockContainer } from '../StyledComponents';
+import UserInfoHeader from '../Main/UserInfoHeader';
+import Wall from '../Main/Wall';
 
 const RightBlock = () => (
   <RightBlockContainer>
