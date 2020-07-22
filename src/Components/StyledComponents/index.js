@@ -179,7 +179,7 @@ export const WallContainer = styled.div`
   position: relative;
   top: -100px;
   width: 1291px;
-  height: 2000px;
+  height: 100%;
   background: #ffffff;
   border-radius: 15px 15px 0px 0px;
   display: flex;

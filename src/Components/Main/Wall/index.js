@@ -20,6 +20,7 @@ import {
 } from '../../StyledComponents';
 import WallCreateArticle from '../WallCreateArticle';
 import FormStatus from './FormStatus';
+import BlockNotes from '../Articles/blockNotes/BlockNotes';
 
 const leftBlockItems = [
   'День рождения',
@@ -67,6 +68,7 @@ const Wall = () => (
       </WallInfoUserAbout>
     </WallInfoBlock>
     <WallCreateArticle />
+    <BlockNotes />
   </WallContainer>
 );
 

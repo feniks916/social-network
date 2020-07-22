@@ -6,12 +6,16 @@ import UserNote from './UserNote';
 import Note from './Note';
 
 const Wrapper = styled.div`
-  max-width: 100%;
+  border-bottom: 1px solid #515151;
+  margin-left: 106px;
+  margin-bottom: 100px;
+  max-width: 83.6%;
   font-family: Montserrat;
   font-style: normal;
 `;
 const Line = styled.div`
   border: 1px solid #515151;
+  padding: 0;
   width: 100%;
 `;
 
@@ -20,13 +24,14 @@ const MenuWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 50px 0;
+  border-bottom: 1px solid #515151;
 `;
 const Menu = styled.ul`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: 0;
-
+  margin-bottom: 61px;
   font-weight: normal;
   font-size: 16px;
   line-height: 20px;
@@ -106,7 +111,6 @@ const BlockNotes = () => {
 
   return (
     <Wrapper>
-      <Line />
       <MenuWrapper>
         <Menu>
           <MenuItem className="active">Все</MenuItem>
@@ -115,7 +119,7 @@ const BlockNotes = () => {
         </Menu>
         {renderSearch()}
       </MenuWrapper>
-      <Line />
+      {/*<Line />*/}
       <UserNote />
       <Note />
       <TagsList>
@@ -123,7 +127,7 @@ const BlockNotes = () => {
           <TagItem key={item.id}>{item.tag}</TagItem>
         ))}
       </TagsList>
-      <Line />
+      {/*<Line />*/}
     </Wrapper>
   );
 };

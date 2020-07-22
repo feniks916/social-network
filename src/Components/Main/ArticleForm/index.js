@@ -39,7 +39,7 @@ const ArticleForm = (props) => {
         rows="12"
       />
       <button className="articleButton" type="submit">
-        Submit
+        Опубликовать
       </button>
       <ButtonMore img={buttonMore} onClick={changeOpen} />
     </form>
