@@ -90,7 +90,7 @@ export const RightBlockContainer = styled.div`
 
 export const UserInfoHeaderContainer = styled.div`
   margin-left: 75px;
-  position: relative;
+  position: absolute;
   width: 800px;
   height: 344px;
   display: flex;
@@ -177,7 +177,7 @@ export const UserOnlineIcon = styled.div`
 
 export const WallContainer = styled.div`
   position: relative;
-  top: -100px;
+  margin-top: 250px;
   width: 1291px;
   height: 100%;
   background: #ffffff;

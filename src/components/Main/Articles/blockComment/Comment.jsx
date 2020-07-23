@@ -21,6 +21,7 @@ const Title = styled.h3`
   font-size: 16px;
   line-height: 20px;
   margin: 0 0 5px 0;
+  color: black;
 `;
 const SubtitleTime = styled.span`
   font-weight: 500;

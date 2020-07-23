@@ -33,6 +33,8 @@ const Title = styled.h3`
   font-size: 16px;
   line-height: 20px;
   margin: 0 0 5px 0;
+  color: black;
+  color: black;
 `;
 const SubtitleTime = styled.span`
   font-weight: 500;
@@ -80,6 +82,7 @@ const CountAction = styled.span`
   margin-left: 10px;
   font-size: 18px;
   line-height: 160.9%;
+  color: black;
 `;
 
 const UserNote = () => {

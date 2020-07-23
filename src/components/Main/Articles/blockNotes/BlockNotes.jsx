@@ -8,7 +8,6 @@ import Note from './Note';
 const Wrapper = styled.div`
   border-bottom: 1px solid #515151;
   margin-left: 106px;
-  //margin-bottom: 100px;
   max-width: 83.6%;
   font-family: Montserrat,serif;
   font-style: normal;
@@ -35,7 +34,7 @@ const Menu = styled.ul`
 const MenuItem = styled.li`
   list-style: none;
   cursor: pointer;
-
+  color: black;
   &:not(:last-child) {
     margin-right: 60px;
   }
@@ -81,7 +80,7 @@ const TagsList = styled.ul`
 const TagItem = styled.li`
   list-style: none;
   font-size: 16px;
-
+  color: black;
   &:not(:last-child) {
     margin-right: 10px;
   }

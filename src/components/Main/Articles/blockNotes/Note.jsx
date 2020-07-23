@@ -56,6 +56,7 @@ const NoteItem = styled.li`
   list-style-type: decimal;
   text-align: start;
   margin: 10px 0 0 0;
+  color: black;
 `;
 
 const BtnOpenNote = styled.button`
