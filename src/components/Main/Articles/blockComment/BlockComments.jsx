@@ -34,6 +34,7 @@ const Title = styled.div`
   line-height: 160.9%;
   color: #515151;
   margin: 0 0 40px 0;
+  font-family: Montserrat, serif;
 `;
 
 const BlockComments = () => (

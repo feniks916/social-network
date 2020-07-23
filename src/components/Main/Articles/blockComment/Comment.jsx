@@ -22,6 +22,7 @@ const Title = styled.h3`
   line-height: 20px;
   margin: 0 0 5px 0;
   color: black;
+  font-family: Montserrat, serif;
 `;
 const SubtitleTime = styled.span`
   font-weight: 500;
@@ -40,6 +41,7 @@ const Text = styled.p`
   text-align: start;
   padding-left: 95px;
   box-sizing: border-box;
+  font-family: Montserrat, serif;
 `;
 
 const Comment = ({ comment }) => {

@@ -106,7 +106,7 @@ const UserNote = () => {
         </Action>
         <Action>
           <ActionComment />
-          <CountAction>0</CountAction>
+          <CountAction>1</CountAction>
         </Action>
         <Action>
           <ActionRepost />

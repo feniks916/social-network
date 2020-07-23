@@ -48,7 +48,7 @@ const BtnOpenNote = styled.button`
   height: 34px;
   border-radius: 17px;
   background-color: #ffb11b;
-  background-image: ${({ isOpen }) => (isOpen ? `url(${closeNote})` : `url(${openNote})`)};
+  background-image: ${({ isOpen }) => (isOpen ? `url(${openNote})` : `url(${closeNote})`)};
   background-position: center center;
   background-repeat: no-repeat;
   cursor: pointer;
