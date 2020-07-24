@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 
 const ModalChatUserInfo = styled.div`
   width: 60px;
+  height: fit-content;
+  cursor: pointer;
+  &:hover div {
+    color: #bf861a;
+  }
 `;
 
 const ModalChatUserImg = styled.img`
@@ -20,6 +25,7 @@ const ModalChatUserName = styled.div`
   text-align: center;
 `;
 
+// нужно добавить ссылку на страницу пользователя от роутера
 const MessageAuthor = ({ img, name }) => (
   <ModalChatUserInfo>
     <ModalChatUserImg src={img} />
