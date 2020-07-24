@@ -16,7 +16,7 @@ const ModalChatWrapper = styled.div`
   margin: 0px auto;
 `;
 
-const ModalChatContentWrapper = styled.div`
+const ContentWrapper = styled.div`
   height: 100%;
   width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -25,7 +25,7 @@ const ModalChatContentWrapper = styled.div`
   transition: transform 1s ease-in-out, opacity 1s ease-in-out;
 `;
 
-const ModalChatHeader = styled.div`
+const Header = styled.div`
   height: 112px;
   width: 100%;
   display: flex;
@@ -42,7 +42,7 @@ const ModalChatHeader = styled.div`
   color: #000000;
 `;
 
-const ModalChatContent = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -61,7 +61,7 @@ const ModalChatMessageWrapper = styled.div`
   padding-right: 35px;
 `;
 
-const ModalChatSubmitMessageWrap = styled.div`
+const SubmitMessageWrap = styled.div`
   margin: 30px;
 `;
 
@@ -213,15 +213,15 @@ const ModalChat = () => {
 
   return (
     <ModalChatWrapper>
-      <ModalChatContentWrapper isOpen={isOpen}>
-        <ModalChatHeader>Чат JMSN</ModalChatHeader>
-        <ModalChatContent>
+      <ContentWrapper isOpen={isOpen}>
+        <Header>Чат JMSN</Header>
+        <Content>
           <ScrollBar style={scrollBarStyles}>{renderMessages()}</ScrollBar>
-        </ModalChatContent>
-        <ModalChatSubmitMessageWrap>
+        </Content>
+        <SubmitMessageWrap>
           <SubmitMessage />
-        </ModalChatSubmitMessageWrap>
-      </ModalChatContentWrapper>
+        </SubmitMessageWrap>
+      </ContentWrapper>
       <ModalChatOpen onClick={switchModalStatus} isOpen={isOpen} />
     </ModalChatWrapper>
   );

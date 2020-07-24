@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const MessageContainer = styled.div`
+const Container = styled.div`
   margin-bottom: 25px;
 `;
 
@@ -54,11 +54,11 @@ const Messages = ({ messages, messagesType }) => {
   const renderMessages = () => messages.map((el) => <p>{el}</p>);
 
   return (
-    <MessageContainer>
+    <Container>
       <MessagesWrap type={messagesType}>{renderMessages()}</MessagesWrap>
       <MessageDate type={messagesType}>05/05/20</MessageDate>
       <MessageTime type={messagesType}>20:55</MessageTime>
-    </MessageContainer>
+    </Container>
   );
 };
 

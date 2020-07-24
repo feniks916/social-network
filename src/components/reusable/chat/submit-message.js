@@ -6,19 +6,19 @@ import sendMessageSrc from '../../../images/icons/send-message.svg';
 import addFileSrc from '../../../images/icons/add-file.svg';
 
 const { TextArea } = Input;
-const SubmitMessageWrap = styled.div`
+const Wrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
 `;
 
-const SubmitMessageTextWrap = styled.div`
+const TextWrap = styled.div`
   position: relative;
   display: flex;
   flex-grow: 1;
 `;
-const SubmitMessageText = styled(TextArea)`
+const Text = styled(TextArea)`
   width: 100%;
   background: #fff5e3;
   border-radius: 15px;
@@ -39,7 +39,7 @@ const SubmitMessageText = styled(TextArea)`
   }
 `;
 
-const SubmitMessageFileIcon = styled.img`
+const FileIcon = styled.img`
   position: absolute;
   cursor: pointer;
   top: 10px;
@@ -63,17 +63,17 @@ export default () => {
   });
 
   return (
-    <SubmitMessageWrap>
-      <SubmitMessageTextWrap>
-        <SubmitMessageText
+    <Wrap>
+      <TextWrap>
+        <Text
           placeholder="Напишите что-нибудь..."
           id="message"
           value={formik.values.message}
           onChange={formik.handleChange}
         />
-        <SubmitMessageFileIcon src={addFileSrc} />
-      </SubmitMessageTextWrap>
+        <FileIcon src={addFileSrc} />
+      </TextWrap>
       <SubmitMessageIcon src={sendMessageSrc} onClick={formik.handleSubmit} />
-    </SubmitMessageWrap>
+    </Wrap>
   );
 };

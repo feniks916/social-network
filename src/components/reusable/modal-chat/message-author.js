@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ModalChatUserInfo = styled.div`
+const Wrapper = styled.div`
   width: 60px;
   height: fit-content;
   cursor: pointer;
@@ -11,13 +11,13 @@ const ModalChatUserInfo = styled.div`
   }
 `;
 
-const ModalChatUserImg = styled.img`
+const UserImg = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 50%;
 `;
 
-const ModalChatUserName = styled.div`
+const UserName = styled.div`
   color: #000000;
   font-size: 12px;
   font-weight: 500;
@@ -27,10 +27,10 @@ const ModalChatUserName = styled.div`
 
 // нужно добавить ссылку на страницу пользователя от роутера
 const MessageAuthor = ({ img, name }) => (
-  <ModalChatUserInfo>
-    <ModalChatUserImg src={img} />
-    <ModalChatUserName>{name}</ModalChatUserName>
-  </ModalChatUserInfo>
+  <Wrapper>
+    <UserImg src={img} />
+    <UserName>{name}</UserName>
+  </Wrapper>
 );
 
 export default MessageAuthor;
