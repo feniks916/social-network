@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Input } from 'antd'
 import styled from 'styled-components'
 import SingleFriend from './SingleFriend'
-import SearchIcon from '../../common/img/icons/search.svg';
+import SearchIcon from '../../img/icons/search.svg';
 
 const FriendsWrapper = styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SingleGroup from './SingleGroup';
-import testAvatarka from '../../common/img/test-group-avatar.svg';
+import testAvatarka from '../../img/test-group-avatar.svg';
 import PageSearchInput from '../../common/inputs/PageSearchInput';
 
 const testData = [{

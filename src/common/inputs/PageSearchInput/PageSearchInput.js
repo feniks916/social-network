@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import PropTypes from 'prop-types';
-import SearchIcon from '../../img/icons/search.svg';
+import SearchIcon from '../../../img/icons/search.svg';
 
 const SearchBlock = styled.div`
   display: flex;
