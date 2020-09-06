@@ -9,30 +9,30 @@ const Wrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
   img {
     margin-left: 50px;
     margin-top: 30px;
   }
   min-height: 79vh;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  position: relative;
 `;
 
 const Main = styled.div`
   background: url(${jm}), url(${sn});
   background-repeat: no-repeat, no-repeat;
   background-position: top, bottom;
-  min-height: 79vh;
-  min-width: 500px;
-  margin: 30px auto 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;
 
 const Form = styled.form`
-  max-width: 500px;
   margin: 100px 0;
   border-radius: 15px;
   background: #111111;
+  width: 500px;
 `;
 const InputsArea = styled.div`
   display: flex;
@@ -194,7 +194,7 @@ const Login = () => {
               <ButtonLeft selected={border.second} onClick={() => selectRegistration()}>
                 <p>Регистрация</p>
               </ButtonLeft>
-            </ButtonsArea>{' '}
+            </ButtonsArea>
             <InputsArea>
               <SearchInpit placeholder="Введите ваше имя" nostyle="false" />
               <SearchInpit placeholder="Введите ваш e-mail" nostyle="true" />
