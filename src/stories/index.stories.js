@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import Login from '../components/LoginPage/loginPage';
+import Login from '../pages/LoginPage/loginPage';
 import BlockComments from '../components/Main/Articles/blockComment/BlockComments';
 import BlockNotes from '../components/Main/Articles/blockNotes/BlockNotes';
 import UserInfoHeader from '../components/Main/UserInfoHeader';
