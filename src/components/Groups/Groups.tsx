@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import styled from 'styled-components';
-
 import SingleGroup from './SingleGroup';
 import testAvatarka from '../../img/test-group-avatar.svg';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import { TypeRootReducer } from '../../redux-toolkit/rootReducer';
-import { loadGroups } from '../../redux-toolkit/groupSlice';
+import { loadGroups } from '../../redux-toolkit/groupsSlice';
 import { IStore } from '../../redux-toolkit/store';
+import { IGroup } from '../../types/group';
 
 interface GroupData {
   avatarka: string;
@@ -16,6 +22,7 @@ interface GroupData {
   subscribers: number;
   id: number;
 }
+
 // interface GroupsProps {
 //   loadGroups: (page?: number, size?: number) => void;
 //   groups: GroupData[];
@@ -24,7 +31,7 @@ interface GroupData {
 // }
 interface GroupsProps {
   loadGroups: (page: number, size: number) => void;
-  groups: GroupData[];
+  groups: IGroup[];
   loading: boolean;
   error: Error;
 }
@@ -45,19 +52,20 @@ const Groups: React.FC<GroupsProps> = ({
     setGroupName(value.toLowerCase());
   };
   // eslint-disable-next-line max-len
-  const filterGroups = (data: GroupData[]) => data.filter((el) => el.name.toLowerCase().includes(groupName));
+  const filterGroups = (data: IGroup[]) => data.filter((el) => el.name.toLowerCase().includes(groupName));
 
-  const renderGroups = (data: GroupData[]) => data.map((el) => {
+  const renderGroups = (data: IGroup[]) => data.map((el) => {
     const {
-      avatarka = testAvatarka, name, groupCategory, subscribers,
+      addressImageGroup = testAvatarka, name, groupCategory, subscribers, id,
     } = el;
     return (
       <SingleGroup
         key={el.id}
-        avatar={avatarka}
+        avatar={addressImageGroup}
         name={name}
         category={groupCategory}
         followers={subscribers}
+        id={id}
       />
     );
   });

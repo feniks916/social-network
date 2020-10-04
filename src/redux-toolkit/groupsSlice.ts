@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import groupController from '../services/group-controller';
+import groupController from '../services/groups-controller';
 
 const loadGroups = createAsyncThunk('groups/loadGroups', async (page: number) => {
   const response = await groupController.apiGroups(page);
+  return response;
+});
+
+const loadGroupInfo = createAsyncThunk('groups/loadGroupInfo', async (id: number) => {
+  const response = await groupController.apiGroupInfo(id);
   return response;
 });
 
@@ -20,6 +25,10 @@ const groupsSlice = createSlice({
       ...state,
       groups: action.payload,
     }),
+    getGroupInfo: (state, action) => ({
+      ...state,
+      memberOf: action.payload,
+    }),
   },
   extraReducers: {
     [loadGroups.pending.type]: (state) => ({ ...state, loading: true }),
@@ -33,10 +42,21 @@ const groupsSlice = createSlice({
       error: action.error,
       loading: false,
     }),
+    [loadGroupInfo.pending.type]: (state) => ({ ...state, loading: true }),
+    [loadGroupInfo.fulfilled.type]: (state, action) => ({
+      ...state,
+      memberOf: action.payload,
+      loading: false,
+    }),
+    [loadGroupInfo.rejected.type]: (state, action) => ({
+      ...state,
+      error: action.error,
+      loading: false,
+    }),
   },
 });
 
-export const { getGroups } = groupsSlice.actions;
-export { loadGroups };
+export const { getGroups, getGroupInfo } = groupsSlice.actions;
+export { loadGroups, loadGroupInfo };
 
 export const groupsReducer = groupsSlice.reducer;

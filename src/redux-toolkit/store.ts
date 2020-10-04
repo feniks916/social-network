@@ -2,7 +2,7 @@ import { Action, configureStore } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 import rootReducer, { TypeRootReducer } from './rootReducer';
 import { IUser } from '../types/user';
-import { IGroup } from '../types/group';
+import { IGroup, IFullGroupInfo, IGroupPosts } from '../types/group';
 
 const store = configureStore({
   reducer: rootReducer,
@@ -27,6 +27,12 @@ export interface IStore {
   groups: {
     groups: IGroup[];
     memberOf: number[];
+    error: Error;
+    loading: boolean;
+  }
+  singleGroup: {
+    groupInfo: IFullGroupInfo;
+    posts: IGroupPosts[];
     error: Error;
     loading: boolean;
   }

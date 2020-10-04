@@ -25,8 +25,15 @@ const App = () => (
     <Route path={routes.messages} component={Messages} />
     <Route path={routes.bookmarks} component={Bookmarks} />
     <Route path={routes.photo} component={Photo} />
-    <Route path={routes.group} component={Group} />
     <Route path={routes.groups} component={Groups} />
+    <Route
+      path="/group/:slug"
+      exact
+      render={({ match }) => {
+        const { slug } = match.params;
+        return <Group slug={slug} />;
+      }}
+    />
   </Switch>
 );
 

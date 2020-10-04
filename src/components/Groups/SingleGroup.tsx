@@ -1,30 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import routes from '../../routes';
 
-type GroupProps = {
-  avatar: string;
-  name: string;
-  category: string;
-  followers: number;
-};
+// type GroupProps = {
+//   avatar: string;
+//   name: string;
+//   category: string;
+//   followers: number;
+// };
 
 const SingleGroup = ({
-  avatar, name, category, followers,
-}: GroupProps) => (
+  avatar, name, category, followers, history, slug, id,
+}: any) => (
   <SingleGroupContainer>
     <LeftWrapper>
       <GroupAvatar src={avatar} alt="avatar" />
       <GroupDescriptionContainer>
         <GroupTitle>
-          <ItemLink to={routes.group}>{name}</ItemLink>
+
+          <ItemLink onClick={() => history.push(`/group/${id}`)}>{name}</ItemLink>
         </GroupTitle>
         <GroupCategory>{category}</GroupCategory>
         <GroupFollowers>
           {followers}
           {' '}
           подписчиков
+          {' '}
         </GroupFollowers>
       </GroupDescriptionContainer>
     </LeftWrapper>
@@ -64,7 +66,7 @@ const GroupTitle = styled.span`
   margin-bottom: 8px;
   color: #000000;
 `;
-const ItemLink = styled(Link)`
+const ItemLink = styled.p`
   font-family: Montserrat, serif;
   font-style: normal;
   font-weight: 500;
@@ -102,4 +104,4 @@ const FollowButton = styled.button`
     outline: none;
   }
 `;
-export default SingleGroup;
+export default withRouter(SingleGroup);

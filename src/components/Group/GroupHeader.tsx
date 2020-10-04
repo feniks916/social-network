@@ -1,29 +1,40 @@
 import React from 'react';
+import { format } from 'date-fns';
 import styled from 'styled-components';
 
 interface Idata {
   data: {
-    date: Date;
     description: string;
-    link: string;
-    owner: string;
+    groupCategory: string;
+    id: string;
+    lastRedactionDate: string;
+    linkSite: string;
+    name: string;
+    ownerFio: string;
+    persistDate: string;
+    subscribers: number;
   };
 }
 
-const Navbar = ({
+const GroupHeader = ({
   data: {
-    date, description, link, owner,
+    description,
+    linkSite,
+    ownerFio,
+    persistDate,
   },
-}: Idata) => (
-  <NavbarWrapper>
-    <Date>{date.toLocaleString()}</Date>
-    <Description>{description}</Description>
-    <Link href={link}>{link}</Link>
-    <Owner>{owner}</Owner>
-  </NavbarWrapper>
-);
-
-export default Navbar;
+}: Idata) => {
+  const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
+  return (
+    <NavbarWrapper>
+      <OriginDate>{originDate}</OriginDate>
+      <GroupDescription>{description}</GroupDescription>
+      <Link href={linkSite}>{linkSite}</Link>
+      <Owner>{ownerFio}</Owner>
+    </NavbarWrapper>
+  );
+};
+export default GroupHeader;
 
 const NavbarWrapper = styled.nav`
   font-style: normal;
@@ -38,7 +49,7 @@ const NavbarWrapper = styled.nav`
   align-items: flex-start;
 `;
 
-const Date = styled.div`
+const OriginDate = styled.div`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -47,7 +58,7 @@ const Date = styled.div`
   margin-bottom: 15px;
 `;
 
-const Description = styled.div`
+const GroupDescription = styled.div`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

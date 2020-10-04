@@ -15,4 +15,12 @@ export default class {
   static async apiGroups(page = 1, size = 15) {
     return this.fetching(`api/groups/all?page=${page}&size=${size}`);
   }
+
+  static async apiGroupInfo(id:number, page = 1, size = 15) {
+    return this.fetching(`api/groups/${id}/posts?page=${page}&size=${size}`);
+  }
+
+  static async apiSingleGroup(id:number) {
+    return this.fetching(`api/groups/${id}`);
+  }
 }

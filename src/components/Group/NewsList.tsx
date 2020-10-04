@@ -22,13 +22,24 @@ interface Inews {
   commentsCount: number;
   repostsCount: number;
 }
-const NewsList = ({
-  data: {
-    data: { news },
-  },
-}: Idata) => {
-  const ListNews = news.map((item: Inews) => <NewsItem key={item.id} item={item} />);
+
+interface Inews2 {
+  countBookmarks: number;
+  countComments: number;
+  countLikes: number;
+  countReposts: number;
+  id: number;
+  lastRedactionDate: string;
+  media: [];
+  persistDate: string;
+  tags: [];
+  text: string;
+  title: string;
+}
+
+const NewsList = ({ news }: any) => {
+  console.log(news);
+  const ListNews = news.map((item: any) => <NewsItem key={item.id} item={item} />);
   return <>{ListNews}</>;
 };
-
 export default NewsList;

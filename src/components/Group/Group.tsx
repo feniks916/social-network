@@ -1,24 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Redirect, withRouter, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { connect, ConnectedProps } from 'react-redux';
-import Navbar from './Navbar';
+import { IStore } from '../../redux-toolkit/store';
+import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
 import Comments from './Comments';
 import InputComment from './InputComment';
 import { mockData } from './mockData';
 import photogroup from '../../img/icons/photogroup.svg';
-import { getGroups } from '../../redux-toolkit/groupSlice';
+import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/singleGroupSlice';
 
-interface RootState {
-  groups: [];
-}
-
-const mapDispatch = { getGroups };
-const mapState = (state: RootState) => ({
-  groups: state.groups,
-});
-const connector = connect(mapState, mapDispatch);
-type PropsFromRedux = ConnectedProps<typeof connector>;
 interface Idata {
   data: {
     date: Date;
@@ -48,33 +40,59 @@ interface Icomment {
   date: Date;
   text: string;
 }
-// type GroupProps = {
-//   getGroups: () => void;
-// };
-// interface Iprops {
-//   getGroups: () => void;
-// }
-const Group = (props: PropsFromRedux) => {
-  // const { getGroups } = props;
-  // console.log(getGroups);
+interface RouteParams {
+  slug: string
+}
+const Group = (props:any) => {
+  const params = useParams<RouteParams>();
+  const { slug } = params;
+  // console.log(props, slug);
+  const { loadGroupInfo: _loadGroupInfo, loadGroupPosts: _loadGroupPosts, loading, groupInfo, posts } = props;
+  let { addressImageGroup } = groupInfo;
+  const { description,
+    groupCategory,
+    id,
+    lastRedactionDate,
+    linkSite,
+    name,
+    ownerFio,
+    persistDate,
+    subscribers } = groupInfo;
+
+  if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
+    addressImageGroup = photogroup;
+  }
+  const postsUpg = posts.map((element: any) => ({ ...element, addressImageGroup, groupName: name }));
+  const { getGroups } = props;
+  useEffect(() => {
+    _loadGroupInfo(slug);
+    _loadGroupPosts(slug);
+  }, []);
   const { data, comments }: Idata = mockData;
   return (
     <Wrapper>
-      <Container>
-        <Label>
-          <GroupIco>
-            <Img src={photogroup} alt="Фото группы" />
-          </GroupIco>
-          <DataContainer>
-            <NameGroup>Группа для красивых</NameGroup>
-            <Category>Категория</Category>
-          </DataContainer>
-        </Label>
-        <Navbar data={data} />
-        <NewsList data={mockData} />
-        <Comments data={comments} />
-        <InputComment />
-      </Container>
+      {(loading || groupInfo.length === 0) ? <h1>LOADING</h1> : (
+        <Container>
+          <Label>
+            <GroupIco>
+              <Img src={addressImageGroup} alt="Фото группы" />
+            </GroupIco>
+            <DataContainer>
+              <NameGroup>{name}</NameGroup>
+              <Category>
+                Категория:
+                {' '}
+                {groupCategory}
+              </Category>
+            </DataContainer>
+          </Label>
+          <GroupHeader data={groupInfo} />
+          <NewsList news={postsUpg} />
+          <Comments data={comments} />
+          <InputComment />
+        </Container>
+      )}
+
     </Wrapper>
   );
 };
@@ -157,4 +175,16 @@ const Category = styled.div`
   text-align: left;
 `;
 
-export default connector(Group);
+const mapStateToProps = (state: IStore) => ({
+  groupInfo: state.singleGroup.groupInfo,
+  posts: state.singleGroup.posts,
+  loading: state.singleGroup.loading,
+  error: state.singleGroup.error,
+});
+
+const mapDispatchToProps = {
+  loadGroupInfo,
+  loadGroupPosts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Group));
