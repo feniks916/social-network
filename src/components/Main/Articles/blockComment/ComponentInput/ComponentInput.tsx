@@ -9,13 +9,7 @@ import { IUser } from '../../../../../types/user';
 import { loadCommentsByPost } from '../../../../../redux-toolkit/postsSlice';
 
 import userFoto from '../../../../../img/userFoto.png';
-import {
-  WrapperForm,
-  Input,
-  BtnSend,
-  BtnOpenNote,
-  StyledLoading,
-} from './styles';
+import { WrapperForm, Input, BtnSend, BtnOpenNote, StyledLoading } from './styles';
 import LoadingBlock from '../../../../../common/loadingBlock';
 
 interface Props {
@@ -42,19 +36,21 @@ const ComponentInput: React.FC<Props> = ({
       initialValues={{
         inputText: '',
       }}
-      onSubmit={
-        async (values, actions) => {
-          setIsLoading(true);
-          await createComment({ postId, text: values.inputText, user });
-          await _loadCommentsByPost(postId);
-          setIsLoading(false);
-          actions.resetForm();
-        }
-      }
+      onSubmit={async (values, actions) => {
+        setIsLoading(true);
+        await createComment({ postId, text: values.inputText, user });
+        await _loadCommentsByPost(postId);
+        setIsLoading(false);
+        actions.resetForm();
+      }}
     >
       <WrapperForm>
         <Avatar src={userFoto} />
-        { isLoading && <StyledLoading><LoadingBlock size={30} /></StyledLoading> }
+        {isLoading && (
+          <StyledLoading>
+            <LoadingBlock size={30} />
+          </StyledLoading>
+        )}
         <Field
           as={Input}
           name="inputText"

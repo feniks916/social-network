@@ -9,7 +9,7 @@ import SingleFriend from './SingleFriend';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import { loadFrendsList, setFrendFilter } from '../../redux-toolkit/frendsListSlice';
 
-export const FriendsWrapper = styled.div` 
+export const FriendsWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
   background: #ffffff;
   font-family: 'Montserrat', sans-serif;
@@ -61,9 +61,9 @@ const Friends: React.FC<Props> = ({
 
   const dispatch = useDispatch();
 
-  const filterInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(
-    setFrendFilter(event.target.value.toLowerCase()),
-  );
+  const filterInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setFrendFilter(event.target.value.toLowerCase()));
+  };
 
   const userFiltered = () => {
     console.log('userFiltered');
@@ -103,8 +103,9 @@ const Friends: React.FC<Props> = ({
             />
           ))}
         </div>
-      ) : <Spin size="large" />}
-
+      ) : (
+        <Spin size="large" />
+      )}
     </FriendsWrapper>
   );
 };
