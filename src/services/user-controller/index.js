@@ -1,4 +1,4 @@
-// import getUserById from './mock-user-controller';
+import { getCurrentUser } from './mock-user-controller';
 import {
   getUserById,
   getAllUsers,
@@ -8,4 +8,12 @@ import {
   updateUser,
 } from './user-controller';
 
-export { getUserById, getAllUsers, createNewUser, removeUserById, getFriendsByUserId, updateUser };
+export {
+  getUserById,
+  getCurrentUser,
+  getAllUsers,
+  createNewUser,
+  removeUserById,
+  getFriendsByUserId,
+  updateUser,
+};

@@ -15,7 +15,7 @@ import IComment from '../../../../../types/comment';
 import { RootState } from '../../../../../redux-toolkit/store';
 
 const mapStateToProps = (state: RootState) => ({
-  user: state?.user?.data,
+  user: state?.user?.shownUser,
 });
 
 const mapDispatchToProps = {
