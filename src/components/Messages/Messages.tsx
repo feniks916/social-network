@@ -8,7 +8,7 @@ import { RootState } from '../../redux-toolkit/store';
 import moreOptionSrc from '../../img/icons/chat-more-options.svg';
 import MessagesChat from '../../common/chat/messages';
 import massagesClass from './Messages.module.scss';
-import SubmitMessage from '../../common/chat/submit-message';
+import SubmitMessage from '../../common/chat/Submitmessage/SubmitMessage';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import PageWrapper from '../../common/pageWrapper';
 import * as actions from '../../redux-toolkit/chatSlice';
@@ -103,9 +103,11 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
           <div className={massagesClass.pageSearchInputWrapper}>
             <PageSearchInput placeholder="Поиск..." />
           </div>
-          <div className={massagesClass.selectChatElementsWrapper}>
-            {renderChatList()}
-          </div>
+          <ScrollBar scrollTop={9999} style={scrollBarStyles}>
+            <div className={massagesClass.selectChatElementsWrapper}>
+              {renderChatList()}
+            </div>
+          </ScrollBar>
         </div>
 
         <div className={massagesClass.contentWrapper}>
@@ -118,7 +120,7 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
           </div>
 
           <div className={massagesClass.content}>
-            <button type="button" onClick={() => console.log('menu chats')}>
+            <button className={massagesClass.menu} type="button" onClick={() => console.log('menu chats')}>
               <img alt="more" src={moreOptionSrc} />
             </button>
 
@@ -129,7 +131,7 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
             </div>
 
             <div>
-              <SubmitMessage />
+              <SubmitMessage onSubmitMessage={(mess) => console.log(mess)} />
             </div>
           </div>
         </div>
