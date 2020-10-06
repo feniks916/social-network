@@ -22,7 +22,7 @@ import BlockNotes from '../Articles/blockNotes/BlockNotes';
 import UserAbout from '../UserAbout';
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.user.data,
+  user: state.user.shownUser,
 });
 
 const connector = connect(mapStateToProps);

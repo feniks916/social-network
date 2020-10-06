@@ -27,9 +27,9 @@ import {
 // }
 
 const mapStateToProps = (state: RootState) => ({
-  firstName: state.user.data?.firstName,
-  lastName: state.user.data?.lastName,
-  avatar: state.user.data?.lastName,
+  firstName: state.user.shownUser?.firstName,
+  lastName: state.user.shownUser?.lastName,
+  avatar: state.user.shownUser?.avatar,
 });
 
 const connector = connect(mapStateToProps);
