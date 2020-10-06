@@ -24,11 +24,11 @@ const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 10 };
 
 const mapStateToProps = (state:RootState) => {
   const { chats, currentChat } = state.chat;
-  const { data } = state.user;
+  const { currentUser } = state.user;
   return {
     chats,
     currentChat,
-    user: data,
+    user: currentUser,
   };
 };
 
