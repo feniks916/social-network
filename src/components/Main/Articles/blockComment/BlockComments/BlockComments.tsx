@@ -15,7 +15,7 @@ import IComment from '../../../../../types/comment';
 import { RootState } from '../../../../../redux-toolkit/store';
 
 const mapStateToProps = (state: RootState) => ({
-  user: state?.user?.shownUser,
+  user: state?.user?.data,
 });
 
 const mapDispatchToProps = {
@@ -28,8 +28,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type IBlockComments = PropsFromRedux & {
   comments?: IComment[];
-  loading: boolean;
-  error: null | Error;
   id: number;
   isOpen: boolean;
   setIsCommentsOpen?: (state: boolean) => void;
@@ -38,8 +36,6 @@ type IBlockComments = PropsFromRedux & {
 const BlockComments: React.FC<IBlockComments> = ({
   user,
   comments,
-  loading,
-  error,
   id: postId,
   isOpen,
   setIsCommentsOpen: setIsOpen,

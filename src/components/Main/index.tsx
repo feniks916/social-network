@@ -14,9 +14,9 @@ import LoadingBlock from '../../common/loadingBlock';
 import { StyledLoadingWrapped } from './styled';
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.user.shownUser,
-  loading: state.user.loading,
-  error: state.user.error,
+  user: state.user?.data,
+  loading: state.user?.loading,
+  error: state.user?.error,
 });
 
 const mapDispatch = {

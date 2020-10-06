@@ -13,22 +13,22 @@ import routes from './routes';
 import Bookmarks from './components/Bookmarks';
 import Photo from './components/Photo/Photo';
 import Group from './components/Group';
-import { getCurrentUser } from './redux-toolkit/userSlice';
+import { loadCurrentUser } from './redux-toolkit/currentUserSlice';
 
 import './App.css';
 
 const mapDispatchToProps = {
-  getCurrentUser,
+  loadCurrentUser,
 };
 
 const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const App: React.FC<Props> = ({ getCurrentUser: _getCurrentUser }) => {
+const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser }) => {
   useEffect(() => {
-    _getCurrentUser();
-  }, [_getCurrentUser]);
+    _loadCurrentUser();
+  }, [_loadCurrentUser]);
   return (
     <Switch>
       <Route path={routes.main} component={Main} exact />

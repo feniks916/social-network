@@ -5,9 +5,11 @@ import allAudiosReducer from './audios/allAudiosSlice';
 import { frendsReducer } from './frendsListSlice';
 import { postsReducer } from './postsSlice';
 import chatReducer from './chatSlice';
+import { currentUserReducer } from './currentUserSlice';
 
 const rootReducer = combineReducers({
   user: userReducer,
+  currentUser: currentUserReducer,
   posts: postsReducer,
   allAudiosReducer,
   chat: chatReducer,
