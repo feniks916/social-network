@@ -30,11 +30,11 @@ const onFilterChats = (param:string, data:Ichat[]):Ichat[] => {
 
 const mapStateToProps = (state:RootState) => {
   const { chats, currentChat } = state.chat;
-  const { currentUser } = state.user;
+  const { data } = state.currentUser;
   return {
     chats,
     currentChat,
-    user: currentUser,
+    user: data,
   };
 };
 
