@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { updateStatus } from '../../../../redux-toolkit/userSlice';
+import { updateStatus } from '../../../../redux-toolkit/currentUserSlice';
 
 import { StatusForm, StatusInput } from './styles';
 

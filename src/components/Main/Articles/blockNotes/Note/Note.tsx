@@ -115,8 +115,6 @@ const Note: React.FC<INote> = ({ dataPost }: INote) => {
             isOpen={isCommentsOpen}
             setIsCommentsOpen={setIsCommentsOpen}
             id={post.id}
-            error={error}
-            loading={loading}
             comments={comments}
           />
         </SmoothCollapse>
