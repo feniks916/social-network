@@ -3,16 +3,15 @@ import React, { useEffect, useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { connect, ConnectedProps } from 'react-redux';
 import { Ichat } from '../../types/chat';
-import LoadingBLock from '../../common/loadingBlock/LoadingBlock';
-import ErrorBlock from '../../common/errorBlock/ErrorBlock';
 import { RootState } from '../../redux-toolkit/store';
 import moreOptionSrc from '../../img/icons/chat-more-options.svg';
-import MessagesChat from '../../common/chat/messages';
 import massagesClass from './Messages.module.scss';
 import SubmitMessage from '../../common/chat/Submitmessage/SubmitMessage';
 import PageSearchInput from '../../common/Inputs/PageSearchMasseges/PageSearchInput';
 import PageWrapper from '../../common/pageWrapper';
 import * as actions from '../../redux-toolkit/chatSlice';
+import { onFilterChats, renderchatList, renderMessages } from './helpers';
+
 // import {
 //   getChats,
 //   getGroupChats,
@@ -22,16 +21,6 @@ import * as actions from '../../redux-toolkit/chatSlice';
 // } from '../../services/chat-controller';
 
 const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 10 };
-
-const onFilterChats = (param:string, data:Ichat[]):Ichat[] => {
-  if (param === '') return data;
-  const filtData = data.filter((el) => {
-    const nameChat = el.title.toLowerCase();
-    const findStr = param.toLowerCase();
-    return (nameChat.startsWith(findStr));
-  });
-  return filtData;
-};
 
 const mapStateToProps = (state:RootState) => {
   const { chats, currentChat } = state.chat;
@@ -74,51 +63,6 @@ const Messages: React.FC<Props> = ({
     }
   }, [chats.data, currentChat.data.length, loadCurrentChat]);
 
-  const renderChatList = () => {
-    if (chats.loading) return <LoadingBLock />;
-    if (chats.error) return <ErrorBlock errorMessage={chats.error.message} />;
-    return (
-      filterChats.map((chat) => (
-        <button
-          key={chat.id}
-          className={massagesClass.selectChatElement}
-          type="button"
-          onClick={() => loadCurrentChat(chat.id)}
-        >
-          <img
-            alt="avatar"
-            src={chat.image}
-          />
-          <div className={massagesClass.selectChatUserInfo}>
-            <span>{chat.title}</span>
-            <p>{chat.lastMessage}</p>
-          </div>
-        </button>
-      )));
-  };
-
-  const renderMessages = () => {
-    if (currentChat.loading) return <LoadingBLock />;
-    if (currentChat.error) return <ErrorBlock />;
-    return (
-      currentChat.data.map((el) => {
-        if (el.username === 'bogdan13') {
-          return (
-            <div className={massagesClass.messageWrapper} key={el.idMassage}>
-              <MessagesChat messages={el.message} messagesType="our" date={el.persistDate} />
-              <img alt="avatar" src={el.userSenderImage} />
-            </div>
-          );
-        }
-        return (
-          <div className={massagesClass.messageWrapper} key={el.idMassage}>
-            <img alt="avatar" src={el.userSenderImage} />
-            <MessagesChat messages={el.message} messagesType="their" date={el.persistDate} />
-          </div>
-        );
-      }));
-  };
-
   return (
     <PageWrapper messages>
       <div className={massagesClass.wrapper}>
@@ -128,7 +72,7 @@ const Messages: React.FC<Props> = ({
           </div>
           <ScrollBar scrollTop={9999} style={scrollBarStyles}>
             <div className={massagesClass.selectChatElementsWrapper}>
-              {renderChatList()}
+              {renderchatList(chats, filterChats, loadCurrentChat)}
             </div>
           </ScrollBar>
         </div>
@@ -149,7 +93,7 @@ const Messages: React.FC<Props> = ({
 
             <div className={massagesClass.messagesWrapper}>
               <ScrollBar scrollTop={9999} style={scrollBarStyles}>
-                {renderMessages()}
+                {renderMessages(currentChat)}
               </ScrollBar>
             </div>
 
