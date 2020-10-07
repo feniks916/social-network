@@ -24,8 +24,13 @@ import * as actions from '../../redux-toolkit/chatSlice';
 const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 10 };
 
 const onFilterChats = (param:string, data:Ichat[]):Ichat[] => {
-  console.log(data, param);
-  return data;
+  if (param === '') return data;
+  const filtData = data.filter((el) => {
+    const nameChat = el.title.toLowerCase();
+    const findStr = param.toLowerCase();
+    return (nameChat.startsWith(findStr));
+  });
+  return filtData;
 };
 
 const mapStateToProps = (state:RootState) => {
@@ -119,7 +124,7 @@ const Messages: React.FC<Props> = ({
       <div className={massagesClass.wrapper}>
         <div className={massagesClass.selectChat}>
           <div className={massagesClass.pageSearchInputWrapper}>
-            <PageSearchInput placeholder="Поиск..." action={(value) => setFilterChats(onFilterChats(value, filterChats))} />
+            <PageSearchInput placeholder="Поиск..." action={(value) => setFilterChats(onFilterChats(value, chats.data))} />
           </div>
           <ScrollBar scrollTop={9999} style={scrollBarStyles}>
             <div className={massagesClass.selectChatElementsWrapper}>
