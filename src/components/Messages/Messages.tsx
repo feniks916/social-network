@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ScrollBar from 'react-scrollbars-custom';
 import { connect, ConnectedProps } from 'react-redux';
+import { Ichat } from '../../types/chat';
 import LoadingBLock from '../../common/loadingBlock/LoadingBlock';
 import ErrorBlock from '../../common/errorBlock/ErrorBlock';
 import { RootState } from '../../redux-toolkit/store';
@@ -9,7 +10,7 @@ import moreOptionSrc from '../../img/icons/chat-more-options.svg';
 import MessagesChat from '../../common/chat/messages';
 import massagesClass from './Messages.module.scss';
 import SubmitMessage from '../../common/chat/Submitmessage/SubmitMessage';
-import PageSearchInput from '../../common/Inputs/PageSearch';
+import PageSearchInput from '../../common/Inputs/PageSearchMasseges/PageSearchInput';
 import PageWrapper from '../../common/pageWrapper';
 import * as actions from '../../redux-toolkit/chatSlice';
 // import {
@@ -21,6 +22,11 @@ import * as actions from '../../redux-toolkit/chatSlice';
 // } from '../../services/chat-controller';
 
 const scrollBarStyles = { width: '100%', height: '100%', paddingRight: 10 };
+
+const onFilterChats = (param:string, data:Ichat[]):Ichat[] => {
+  console.log(data, param);
+  return data;
+};
 
 const mapStateToProps = (state:RootState) => {
   const { chats, currentChat } = state.chat;
@@ -38,7 +44,19 @@ const connector = connect(mapStateToProps, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCurrentChat }) => {
+const Messages: React.FC<Props> = ({
+  chats,
+  currentChat,
+  loadChatsOfUser,
+  loadCurrentChat,
+  user,
+}) => {
+  const [filterChats, setFilterChats] = useState<Ichat[]>([]);
+
+  useEffect(() => {
+    setFilterChats(chats.data);
+  }, [chats.data]);
+
   useEffect(() => {
     if (chats.data.length === 0) {
       loadChatsOfUser();
@@ -50,6 +68,29 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
       loadCurrentChat(chats.data[0].id);
     }
   }, [chats.data, currentChat.data.length, loadCurrentChat]);
+
+  const renderChatList = () => {
+    if (chats.loading) return <LoadingBLock />;
+    if (chats.error) return <ErrorBlock errorMessage={chats.error.message} />;
+    return (
+      filterChats.map((chat) => (
+        <button
+          key={chat.id}
+          className={massagesClass.selectChatElement}
+          type="button"
+          onClick={() => loadCurrentChat(chat.id)}
+        >
+          <img
+            alt="avatar"
+            src={chat.image}
+          />
+          <div className={massagesClass.selectChatUserInfo}>
+            <span>{chat.title}</span>
+            <p>{chat.lastMessage}</p>
+          </div>
+        </button>
+      )));
+  };
 
   const renderMessages = () => {
     if (currentChat.loading) return <LoadingBLock />;
@@ -73,35 +114,12 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
       }));
   };
 
-  const renderChatList = () => {
-    if (chats.loading) return <LoadingBLock />;
-    if (chats.error) return <ErrorBlock errorMessage={chats.error.message} />;
-    return (
-      chats.data.map((chat) => (
-        <button
-          key={chat.id}
-          className={massagesClass.selectChatElement}
-          type="button"
-          onClick={() => loadCurrentChat(chat.id)}
-        >
-          <img
-            alt="avatar"
-            src={chat.image}
-          />
-          <div className={massagesClass.selectChatUserInfo}>
-            <span>{chat.title}</span>
-            <p>{chat.lastMessage}</p>
-          </div>
-        </button>
-      )));
-  };
-
   return (
     <PageWrapper messages>
       <div className={massagesClass.wrapper}>
         <div className={massagesClass.selectChat}>
           <div className={massagesClass.pageSearchInputWrapper}>
-            <PageSearchInput placeholder="Поиск..." />
+            <PageSearchInput placeholder="Поиск..." action={(value) => setFilterChats(onFilterChats(value, filterChats))} />
           </div>
           <ScrollBar scrollTop={9999} style={scrollBarStyles}>
             <div className={massagesClass.selectChatElementsWrapper}>
@@ -114,8 +132,8 @@ const Messages: React.FC<Props> = ({ chats, currentChat, loadChatsOfUser, loadCu
           <div className={massagesClass.contentHeader}>
             <img alt="avatar" src="https://st.kp.yandex.net/images/actor_iphone/iphone360_1746394.jpg" />
             <div className={massagesClass.contentUserInfo}>
-              <span>Павел Нечаев</span>
-              <p>Программист</p>
+              <span>{`${user?.firstName} ${user?.lastName}`}</span>
+              {/* <p>Программист</p> */}
             </div>
           </div>
 
