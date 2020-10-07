@@ -1,20 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { ICommentData } from '../../types/group';
 import CommentsListItem from './CommentsListItem';
 
-interface Icomment {
-  avatar: string;
-  author: string;
-  date: Date;
-  text: string;
-}
-
-interface Idata {
-  data: Icomment[];
-}
-
-const CommentsList = ({ data }: Idata) => (
+const CommentsList : React.FC<ICommentData> = ({ data }) : ReactElement => (
   <Container>
     {data.map((item) => (
       <CommentsListItem

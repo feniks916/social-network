@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Redirect, withRouter, useParams } from 'react-router-dom';
+import React, { ReactElement, useEffect } from 'react';
+import { withRouter, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { IStore } from '../../redux-toolkit/store';
@@ -10,6 +10,7 @@ import InputComment from './InputComment';
 import { mockData } from './mockData';
 import photogroup from '../../img/icons/photogroup.svg';
 import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/singleGroupSlice';
+import { IGroupPosts } from '../../types/group';
 
 interface Idata {
   data: {
@@ -43,32 +44,46 @@ interface Icomment {
 interface RouteParams {
   slug: string
 }
-const Group = (props:any) => {
+// interface GroupProps {
+//   loadGroupInfo: (id: string) => void;
+//   loadGroupPosts: (id: string) => void;
+//   groupInfo: any;
+//   posts: IGroupPosts[];
+//   loading: boolean;
+//   error: any;
+// }
+
+const Group = ({ loadGroupInfo: _loadGroupInfo,
+  loadGroupPosts: _loadGroupPosts,
+  loading,
+  groupInfo,
+  posts } : any) : ReactElement => {
   const params = useParams<RouteParams>();
   const { slug } = params;
-  // console.log(props, slug);
-  const { loadGroupInfo: _loadGroupInfo, loadGroupPosts: _loadGroupPosts, loading, groupInfo, posts } = props;
   let { addressImageGroup } = groupInfo;
-  const { description,
+  const {
+    // description,
     groupCategory,
-    id,
-    lastRedactionDate,
-    linkSite,
+    // id,
+    // lastRedactionDate,
+    // linkSite,
     name,
-    ownerFio,
-    persistDate,
-    subscribers } = groupInfo;
+    // ownerFio,
+    // persistDate,
+    // subscribers
+  } = groupInfo;
 
   if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
     addressImageGroup = photogroup;
   }
-  const postsUpg = posts.map((element: any) => ({ ...element, addressImageGroup, groupName: name }));
-  const { getGroups } = props;
+  const postsUpg = posts.map((element: IGroupPosts) => ({ ...element,
+    addressImageGroup,
+    groupName: name }));
   useEffect(() => {
     _loadGroupInfo(slug);
     _loadGroupPosts(slug);
   }, []);
-  const { data, comments }: Idata = mockData;
+  const { comments }: Idata = mockData;
   return (
     <Wrapper>
       {(loading || groupInfo.length === 0) ? <h1>LOADING</h1> : (

@@ -1,18 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, withRouter } from 'react-router-dom';
-import routes from '../../routes';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { loadGroups, joinGroup, leaveGroup } from '../../redux-toolkit/groupsSlice';
+import { IGroupStateProps } from '../../types/group';
 
-// type GroupProps = {
+// Нужно разобраться ст ипизацией коннект и доделать
+// interface SingleGroupProps {
 //   avatar: string;
 //   name: string;
 //   category: string;
 //   followers: number;
-// };
-
+//   history: any;
+//   id: number;
+//   memberOf: number[];
+//   joinGroup: (props : IGroupRequestProps) => void;
+//   leaveGroup: (props : IGroupRequestProps) => void;
+// }
 const SingleGroup = ({
-  avatar, name, category, followers, history, slug, id,
-}: any) => (
+  avatar,
+  name,
+  category,
+  followers,
+  history,
+  id,
+  joinGroup: _joinGroup,
+  leaveGroup: _leaveGroup,
+  memberOf,
+} : any) => (
   <SingleGroupContainer>
     <LeftWrapper>
       <GroupAvatar src={avatar} alt="avatar" />
@@ -30,7 +45,18 @@ const SingleGroup = ({
         </GroupFollowers>
       </GroupDescriptionContainer>
     </LeftWrapper>
-    <FollowButton>Вступить в группу</FollowButton>
+    {memberOf.some((element : number) => element === id)
+      ? (
+        <UnFollowButton onClick={() => _leaveGroup({ userId: 4, groupId: id })}>
+          Выйти из группы
+        </UnFollowButton>
+      )
+      : (
+        <FollowButton onClick={() => _joinGroup({ userId: 4, groupId: id })}>
+          Вступить в группу
+        </FollowButton>
+      )}
+
   </SingleGroupContainer>
 );
 
@@ -66,7 +92,7 @@ const GroupTitle = styled.span`
   margin-bottom: 8px;
   color: #000000;
 `;
-const ItemLink = styled.p`
+const ItemLink = styled.a`
   font-family: Montserrat, serif;
   font-style: normal;
   font-weight: 500;
@@ -104,4 +130,30 @@ const FollowButton = styled.button`
     outline: none;
   }
 `;
-export default withRouter(SingleGroup);
+const UnFollowButton = styled.button`
+  background-color: #ffffff;
+  color:#ffb11b;
+  border-radius: 5px;
+  border: solid #ffb11b 1px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px 40px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const mapStateToProps = (state: IGroupStateProps) => ({
+  groups: state.groups.groups,
+  memberOf: state.groups.memberOf,
+  loading: state.groups.loading,
+  error: state.groups.error,
+});
+
+const mapDispatchToProps = {
+  loadGroups,
+  joinGroup,
+  leaveGroup,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SingleGroup));

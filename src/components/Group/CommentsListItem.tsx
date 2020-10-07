@@ -1,27 +1,21 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { ICommentsListProps } from '../../types/group';
 import avatar from '../../img/icons/mock-avatar.svg';
 
-interface Idata {
-  data: {
-    author: string;
-    date: Date;
-    text: string;
-  };
-}
-
-const CommentsList = ({ data: { author, date, text } }: Idata) => (
-  <Container>
-    <AvatarContainer>
-      <AvatarImg src={avatar} alt="Aватар" />
-    </AvatarContainer>
-    <Content>
-      <Author>{author}</Author>
-      <Date>{date.toLocaleString()}</Date>
-      <Text>{text}</Text>
-    </Content>
-  </Container>
+const CommentsList : React.FC<ICommentsListProps> = ({ data:
+  { author, date, text } }) : ReactElement => (
+    <Container>
+      <AvatarContainer>
+        <AvatarImg src={avatar} alt="Aватар" />
+      </AvatarContainer>
+      <Content>
+        <Author>{author}</Author>
+        <Date>{date.toLocaleString()}</Date>
+        <Text>{text}</Text>
+      </Content>
+    </Container>
 );
 
 const Container = styled.div`

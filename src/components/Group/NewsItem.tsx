@@ -1,71 +1,30 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { format } from 'date-fns';
 import styled from 'styled-components';
-import Swiper, { Navigation, Pagination } from 'swiper';
-import avatar from '../../img/icons/mock-avatar.svg';
 import favorite from '../../img/icons/favorite.svg';
 import like from '../../img/icons/like.svg';
 import comment from '../../img/icons/comment.svg';
 import repost from '../../img/icons/repost.svg';
 import more from '../../img/icons/more.svg';
 import moreUp from '../../img/icons/moreUp.svg';
-import { mockMediaVideo, mockMediaImages, mockMediaSingleImage, mockAudio } from './mockData';
+import { mockMediaImages } from './mockData';
 import 'swiper/swiper-bundle.css';
-import isSelected from '../../types/maxmin';
+import { INewsData } from '../../types/group';
 
-interface Idata {
-  item: {
-    title: string;
-    img: string;
-    text: string;
-    tags: string[];
-    author: string;
-    time: string;
-    countBookmarks: number;
-    countLikes: number;
-    countComments: number;
-    countReposts: number;
-  };
-}
 interface Inews2 {
-  item: {
-  countBookmarks: number;
-  countComments: number;
-  countLikes: number;
-  countReposts: number;
-  id: number;
-  lastRedactionDate: string;
-  media: IMedia[];
-  persistDate: string;
-  tags: ITag[];
-  text: string;
-  title: string;
-  addressImageGroup: string;
-  groupName: string;
-  }
+  item: INewsData;
 }
 
-interface ITag {
-  id: number;
-  text: string;
-}
-
-interface IMedia {
-  userId: string;
-  mediaType: string;
-  url: string;
-}
-
-const NewsItem = ({
+const NewsItem : React.FC<Inews2> = ({
   item: { title,
     addressImageGroup,
     groupName,
     // img,
     text,
     tags,
-    media,
+    // media,
     // author,
     persistDate,
     countBookmarks,
@@ -73,12 +32,8 @@ const NewsItem = ({
     countComments,
     countReposts },
 
-}: Inews2) => {
+}) : ReactElement => {
   const allowedProps = { isSelected: false };
-  const testFunc = (target : any) => {
-    console.log(target);
-    allowedProps.isSelected = true;
-  };
   const [isOpen, setIsOpen] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
   const handleModal = (target : any) => {
@@ -117,7 +72,7 @@ const NewsItem = ({
 
     switch (el.mediaType) {
       case 'IMAGE':
-        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt) => handleModal(evt.target)} {...allowedProps} />;
+        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt : React.MouseEvent<HTMLElement>) => handleModal(evt.target)} {...allowedProps} />;
       case 'VIDEO':
         return (
           <NewsVideo title={el.url} key={keyCount} src={el.url} width="560" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
@@ -173,16 +128,12 @@ const NewsItem = ({
         </ActionsContainer>
       </NewsHeader>
       <NewsTitle>{title}</NewsTitle>
-
       <WrapperContent>
         <NewsContentContainer>
-
           <MediaContainer>
             {isOpen && <MaxImg src={imgUrl} alt="no" onClick={handleModal} />}
             {listMedia}
-
           </MediaContainer>
-          {/* <NewsImage src={img} alt="" /> */}
           <NewsContent style={{ height }}>{text}</NewsContent>
         </NewsContentContainer>
         <ButtonMore>
@@ -319,8 +270,7 @@ const NewsImage = styled.img`
   box-shadow: 1px 1px 8px 0px #d5d2d2;
 `;
 
-const NewsImageMin = styled.img<isSelected>`
-
+const NewsImageMin = styled.img`
 width: 350px;
   height: 210px;
   object-fit: contain;

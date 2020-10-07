@@ -1,60 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import React, { useState, useEffect, ReactElement } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import SingleGroup from './SingleGroup';
 import testAvatarka from '../../img/test-group-avatar.svg';
 import PageSearchInput from '../../common/Inputs/PageSearch';
-import { TypeRootReducer } from '../../redux-toolkit/rootReducer';
-import { loadGroups } from '../../redux-toolkit/groupsSlice';
-import { IStore } from '../../redux-toolkit/store';
-import { IGroup } from '../../types/group';
+import { loadGroups, joinGroup, loadAllUsers } from '../../redux-toolkit/groupsSlice';
+import { IGroup, IGroupRequestProps } from '../../types/group';
 
-interface GroupData {
-  avatarka: string;
-  name: string;
-  groupCategory: string;
-  subscribers: number;
-  id: number;
-}
-
-// interface GroupsProps {
-//   loadGroups: (page?: number, size?: number) => void;
-//   groups: GroupData[];
-//   loading: boolean;
-//   error: Error;
-// }
 interface GroupsProps {
   loadGroups: (page: number, size: number) => void;
+  loadAllUsers: (props : IGroupRequestProps) => void;
   groups: IGroup[];
-  loading: boolean;
-  error: Error;
+  // loading: boolean;
+  // error: Error;
 }
+
 const Groups: React.FC<GroupsProps> = ({
-  loadGroups: _loadGroups, loading, error, groups,
-}: GroupsProps) => {
-  // const dispatch = useDispatch();
-  // const { groups } = useSelector((state: TypeRootReducer) => state.groups);
-  const [groupsToShow, setGroupsToShow] = useState(groups);
+  loadGroups: _loadGroups,
+  // loading,
+  // error,
+  groups,
+  loadAllUsers: _loadAllUsers,
+}): ReactElement => {
+  const currentUserId = 4;
   useEffect(() => {
     _loadGroups(1, 15);
-    console.log(_loadGroups);
   }, []);
-
+  useEffect(() => {
+    groups.forEach((element : IGroup) => _loadAllUsers({ userId: currentUserId,
+      groupId: element.id }));
+  }, [groups]);
   const [groupName, setGroupName] = useState<string>('');
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setGroupName(value.toLowerCase());
   };
-  // eslint-disable-next-line max-len
-  const filterGroups = (data: IGroup[]) => data.filter((el) => el.name.toLowerCase().includes(groupName));
 
-  const renderGroups = (data: IGroup[]) => data.map((el) => {
+  const filterGroups = (data: IGroup[]) => data.filter((el) => el.name.toLowerCase()
+    .includes(groupName));
+
+  const renderGroups = (data: IGroup[]) => data.map((el : IGroup) => {
     const {
       addressImageGroup = testAvatarka, name, groupCategory, subscribers, id,
     } = el;
@@ -78,7 +63,12 @@ const Groups: React.FC<GroupsProps> = ({
   );
 };
 
-const mapStateToProps = (state: IStore) => ({
+const mapStateToProps = (state:
+  { groups:
+    { groups: IGroup[];
+      memberOf: number[];
+      loading: boolean;
+      error: Error; }; }) => ({
   groups: state.groups.groups,
   memberOf: state.groups.memberOf,
   loading: state.groups.loading,
@@ -87,6 +77,8 @@ const mapStateToProps = (state: IStore) => ({
 
 const mapDispatchToProps = {
   loadGroups,
+  joinGroup,
+  loadAllUsers,
 };
 
 export const GroupsContainer = styled.div`

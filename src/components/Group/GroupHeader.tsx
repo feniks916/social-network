@@ -1,29 +1,16 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
+import { IGroupHeaderData } from '../../types/group';
 
-interface Idata {
-  data: {
-    description: string;
-    groupCategory: string;
-    id: string;
-    lastRedactionDate: string;
-    linkSite: string;
-    name: string;
-    ownerFio: string;
-    persistDate: string;
-    subscribers: number;
-  };
-}
-
-const GroupHeader = ({
+const GroupHeader : React.FC<IGroupHeaderData> = ({
   data: {
     description,
     linkSite,
     ownerFio,
     persistDate,
   },
-}: Idata) => {
+}) : ReactElement => {
   const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
   return (
     <NavbarWrapper>

@@ -1,19 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { ICommentData } from '../../types/group';
 import CommentsList from './CommentsList';
 
-interface Icomment {
-  avatar: string;
-  author: string;
-  date: Date;
-  text: string;
-}
-
-interface Idata {
-  data: Icomment[];
-}
-
-const Comments = ({ data }: Idata) => (
+const Comments : React.FC<ICommentData> = ({ data }) : ReactElement => (
   <Container>
     <Heading>Комментарии</Heading>
     <CommentsList data={data} />
