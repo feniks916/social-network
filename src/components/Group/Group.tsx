@@ -12,16 +12,6 @@ import photogroup from '../../img/icons/photogroup.svg';
 import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/singleGroupSlice';
 import { IGroupPosts } from '../../types/group';
 
-interface Idata {
-  data: {
-    date: Date;
-    description: string;
-    link: string;
-    owner: string;
-    news: Inews[];
-  };
-  comments: Icomment[];
-}
 interface Inews {
   id: number;
   title: string;
@@ -41,6 +31,17 @@ interface Icomment {
   date: Date;
   text: string;
 }
+interface Idata {
+  data: {
+    date: Date;
+    description: string;
+    link: string;
+    owner: string;
+    news: Inews[];
+  };
+  comments: Icomment[];
+}
+
 interface RouteParams {
   slug: string
 }
