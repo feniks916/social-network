@@ -211,9 +211,9 @@ export const InfoHeaderText = styled.div`
 `;
 
 export const InfoHeaderTextBlock = styled.div`
-  width: 530px;
   margin-top: 47px;
   display: flex;
+  flex-wrap: wrap;
 `;
 
 export const InfoHeaderTextLeftBlock = styled.div`
@@ -232,6 +232,7 @@ export const InfoHeaderListItemLeft = styled.div`
   font-size: 16px;
   line-height: 20px;
   color: #515151;
+  flex-basis: 45%;
 `;
 
 export const InfoHeaderListItemRight = styled.div`
@@ -239,6 +240,7 @@ export const InfoHeaderListItemRight = styled.div`
   font-size: 16px;
   line-height: 20px;
   color: #000000;
+  flex-basis: 45%;
 `;
 
 export const InfoPhotoBlock = styled.div`
@@ -307,8 +309,19 @@ export const WallCreateArticleHeaderBlockRight = styled.div`
 
 export const IconArticle = styled.img.attrs<Iimg>((props) => ({ src: props.img }))<Iimg>`
   margin-left: 13px;
-  &:hover {
-    cursor: pointer;
+  cursor: pointer;
+`;
+
+export const IconCross = styled(IconArticle)<{$isOpen: boolean}>`
+  transform: rotate(${({ $isOpen }) => ($isOpen ? '45' : '0')}deg);
+`;
+
+export const WallCreateArticleIconContainer = styled.div<{ $isOpen: boolean }>`
+  overflow: hidden;
+
+  & > * {
+    transition: transform .3s;
+    transform: translate(${({ $isOpen }) => ($isOpen ? '0%' : '80%')});
   }
 `;
 

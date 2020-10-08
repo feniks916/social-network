@@ -1,8 +1,8 @@
 import React, { ReactElement, useEffect } from 'react';
-import { withRouter, useParams } from 'react-router-dom';
+import { withRouter, useParams, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { IStore } from '../../redux-toolkit/store';
+import { IStore } from '../../types/group';
 import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
 import Comments from './Comments';
@@ -45,6 +45,14 @@ interface Idata {
 interface RouteParams {
   slug: string
 }
+interface MyComponent extends RouteComponentProps<RouteParams> {
+  loadGroupInfo: (id: string) => void;
+  loadGroupPosts: (id: string) => void;
+  groupInfo: any;
+  posts: IGroupPosts[];
+  loading: boolean;
+  error: any;
+}
 // interface GroupProps {
 //   loadGroupInfo: (id: string) => void;
 //   loadGroupPosts: (id: string) => void;
@@ -53,6 +61,7 @@ interface RouteParams {
 //   loading: boolean;
 //   error: any;
 // }
+
 
 const Group = ({ loadGroupInfo: _loadGroupInfo,
   loadGroupPosts: _loadGroupPosts,

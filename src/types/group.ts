@@ -1,3 +1,4 @@
+import { IUser } from './user';
 export interface IGroup {
   addressImageGroup: string;
   name: string;
@@ -120,4 +121,24 @@ export interface INewsData {
   title: string;
   addressImageGroup: string;
   groupName: string;
+}
+
+export interface IStore {
+  user: {
+    data: IUser;
+    error: Error;
+    loading: boolean;
+  };
+  groups: {
+    groups: IGroup[];
+    memberOf: number[];
+    error: Error | null;
+    loading: boolean;
+  }
+  singleGroup: {
+    groupInfo: IFullGroupInfo;
+    posts: IGroupPosts[];
+    error: Error;
+    loading: boolean;
+  }
 }

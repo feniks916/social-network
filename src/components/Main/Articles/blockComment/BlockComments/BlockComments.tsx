@@ -1,46 +1,67 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   Wrapper,
   Title,
+  CommentsEmpty,
 } from './styles';
 
+import { loadCommentsByPost } from '../../../../../redux-toolkit/postsSlice';
 import Comment from '../Comment';
 import ComponentInput from '../ComponentInput';
+import IComment from '../../../../../types/comment';
+import { RootState } from '../../../../../redux-toolkit/store';
 
-export interface IComment {
-  id: number,
-  userName: string,
-  userFoto: string,
-  date: string,
-  text: string
-}
+const mapStateToProps = (state: RootState) => ({
+  user: state?.user?.data,
+});
 
-interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDispatchToProps = {
+  loadCommentsByPost,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type IBlockComments = PropsFromRedux & {
   comments?: IComment[];
+  id: number;
+  isOpen: boolean;
   setIsCommentsOpen?: (state: boolean) => void;
-  isCommentsOpen?: boolean;
-}
+};
 
-const BlockComments: React.FC<Props> = ({
+const BlockComments: React.FC<IBlockComments> = ({
+  user,
   comments,
+  id: postId,
+  isOpen,
   setIsCommentsOpen: setIsOpen,
-  isCommentsOpen: isOpen,
+  loadCommentsByPost: _loadCommentsByPost,
 }) => {
-  if (!comments) return null;
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (!comments) {
+      _loadCommentsByPost(postId);
+    }
+  }, [_loadCommentsByPost, comments, postId]);
+  const renderComments = () => {
+    if (!comments) {
+      return <CommentsEmpty>Комментариев нет. Будьте первым!</CommentsEmpty>;
+    }
+    return comments.map((item) => (
+      <Comment key={item.id} comment={item} />
+    ));
+  };
 
   return (
     <Wrapper>
       <Title>Комментарии</Title>
-      {comments.map((item) => (
-        <Comment key={item.id} comment={item} />
-      ))}
-      <ComponentInput setIsOpen={setIsOpen} />
+      { renderComments() }
+      <ComponentInput setIsOpen={setIsOpen} isOpen={isOpen} postId={postId} user={user} />
     </Wrapper>
   );
 };
 
-export default BlockComments;
+export default connector(BlockComments);

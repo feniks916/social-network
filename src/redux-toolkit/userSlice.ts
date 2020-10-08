@@ -1,12 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import userController from '../services/user-controller';
+import { getUserById } from '../services/user-controller';
+import { IUser } from '../types/user';
 
 const loadUser = createAsyncThunk('user/loadUser', async (id: number) => {
-  const response = await userController.getUserById(id);
+  const response = await getUserById(id);
   return response;
 });
 
-const initialState = {
+interface UserState {
+  data: null | IUser,
+  loading: boolean,
+  error: null | Error,
+}
+
+const initialState: UserState = {
   data: null,
   loading: false,
   error: null,
@@ -15,12 +22,13 @@ const initialState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    setData: (state, action) => ({ ...state, data: action.payload, loading: false }),
-    setError: (state, action) => ({ ...state, error: action.payload, loading: false }),
-    setLoading: (state) => ({ ...state, loading: true }),
-  },
+  reducers: {},
   extraReducers: {
+    /*
+    LOAD USER
+      Загружает текущего отображаемого юзера.
+      Использовать для отображения личной страницы другого пользователя и т.д.
+    */
     [loadUser.pending.type]: (state) => ({ ...state, loading: true }),
     [loadUser.fulfilled.type]: (state, action) => ({
       ...state,
@@ -35,6 +43,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setData, setError, setLoading } = userSlice.actions;
 export { loadUser };
 export const userReducer = userSlice.reducer;

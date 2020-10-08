@@ -1,49 +1,54 @@
 // eslint-disable-next-line
-import React, { useEffect, useCallback } from 'react';
-import { connect } from 'react-redux';
-import { Spin } from 'antd';
+import React, { useEffect } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { loadUser } from '../../redux-toolkit/userSlice';
-import { IStore } from '../../redux-toolkit/store';
-import { IUser } from '../../types/user';
-
+import { loadPostsByUser } from '../../redux-toolkit/postsSlice';
+import { RootState } from '../../redux-toolkit/store';
 import Header from '../../common/header';
 import PageWrapper from '../../common/pageWrapper';
 import { MainContainer } from '../../common/styledComponents';
 import UserInfoHeader from './UserInfoHeader';
 import Wall from './Wall';
+import ErrorBlock from '../../common/errorBlock';
+import LoadingBlock from '../../common/loadingBlock';
+import { StyledLoadingWrapped } from './styled';
 
-interface MainProps {
-  loadUser: (arg: number) => void;
-  user: IUser;
-  loading: boolean;
-  error: Error;
-}
+const mapStateToProps = (state: RootState) => ({
+  user: state.user?.data,
+  loading: state.user?.loading,
+  error: state.user?.error,
+});
 
-const Main: React.FC<MainProps> = ({ loadUser: _loadUser, user, loading, error }: MainProps) => {
+const mapDispatch = {
+  loadUser,
+  loadPostsByUser,
+};
+const connector = connect(mapStateToProps, mapDispatch);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux;
+
+const Main: React.FC<Props> = ({
+  loadUser: _loadUser, loadPostsByUser: _loadPostsByUser, user, loading, error,
+}) => {
   useEffect(() => {
-    _loadUser(2);
-  }, [_loadUser]);
-  const renderContent = useCallback(() => {
-    if (!user) {
-      return <Spin />;
+    _loadUser(1);
+    _loadPostsByUser(1);
+  }, [_loadUser, _loadPostsByUser]);
+  const renderContent = () => {
+    if (user) {
+      return (
+        <>
+          <UserInfoHeader />
+          <Wall />
+        </>
+      );
     }
-    const profession = 'Программист на HTML';
-    const lastStatus = 'online';
-    const { firstName, lastName, avatar } = user;
-    return (
-      <>
-        <UserInfoHeader
-          firstName={firstName}
-          lastName={lastName}
-          profession={profession}
-          lastStatus={lastStatus}
-          avatar={avatar}
-        />
-        <Wall />
-      </>
-    );
-  }, [user]);
-
+    if (loading) {
+      return <StyledLoadingWrapped><LoadingBlock /></StyledLoadingWrapped>;
+    }
+    return <ErrorBlock errorMessage={error?.message} />;
+  };
   return (
     <>
       <Header />
@@ -54,14 +59,4 @@ const Main: React.FC<MainProps> = ({ loadUser: _loadUser, user, loading, error }
   );
 };
 
-const mapStateToProps = (state: IStore) => ({
-  user: state.user.data,
-  loading: state.user.loading,
-  error: state.user.error,
-});
-
-const mapDispatchToProps = {
-  loadUser,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connector(Main);
