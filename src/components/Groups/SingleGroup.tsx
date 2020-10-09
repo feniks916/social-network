@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { loadGroups, joinGroup, leaveGroup } from '../../redux-toolkit/groupsSlice';
-import { IGroupStateProps } from '../../types/group';
+import { GroupStateProps } from '../../types/group';
 
-// Нужно разобраться ст ипизацией коннект и доделать
 // interface SingleGroupProps {
 //   avatar: string;
 //   name: string;
@@ -27,14 +26,14 @@ const SingleGroup = ({
   joinGroup: _joinGroup,
   leaveGroup: _leaveGroup,
   memberOf,
-} : any) => (
+}: any): ReactElement => (
   <SingleGroupContainer>
     <LeftWrapper>
       <GroupAvatar src={avatar} alt="avatar" />
       <GroupDescriptionContainer>
         <GroupTitle>
 
-          <ItemLink onClick={() => history.push(`/group/${id}`)}>{name}</ItemLink>
+          <ItemLink onClick={(): void => history.push(`/group/${id}`)}>{name}</ItemLink>
         </GroupTitle>
         <GroupCategory>{category}</GroupCategory>
         <GroupFollowers>
@@ -45,14 +44,14 @@ const SingleGroup = ({
         </GroupFollowers>
       </GroupDescriptionContainer>
     </LeftWrapper>
-    {memberOf.some((element : number) => element === id)
+    {memberOf.some((element: number) => element === id)
       ? (
-        <UnFollowButton onClick={() => _leaveGroup({ userId: 4, groupId: id })}>
+        <UnFollowButton onClick={(): void => _leaveGroup({ userId: 4, groupId: id })}>
           Выйти из группы
         </UnFollowButton>
       )
       : (
-        <FollowButton onClick={() => _joinGroup({ userId: 4, groupId: id })}>
+        <FollowButton onClick={(): void => _joinGroup({ userId: 4, groupId: id })}>
           Вступить в группу
         </FollowButton>
       )}
@@ -144,7 +143,7 @@ const UnFollowButton = styled.button`
   }
 `;
 
-const mapStateToProps = (state: IGroupStateProps) => ({
+const mapStateToProps = (state: GroupStateProps) => ({
   groups: state.groups.groups,
   memberOf: state.groups.memberOf,
   loading: state.groups.loading,

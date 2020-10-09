@@ -1,5 +1,6 @@
 import { IUser } from './user';
-export interface IGroup {
+
+export interface Group {
   addressImageGroup: string;
   name: string;
   groupCategory: string;
@@ -7,7 +8,7 @@ export interface IGroup {
   id: number;
 }
 
-export interface IFullGroupInfo {
+export interface FullGroupInfo {
   addressImageGroup: string;
   description: string;
   groupCategory: string;
@@ -20,36 +21,36 @@ export interface IFullGroupInfo {
   subscribers: number;
 }
 
-interface IMedia {
+interface Media {
   mediaType: string;
   url: string;
-  userId: number
+  userId: number;
 }
 
-interface ITag {
+interface Tag {
   id: number;
   text: string;
 }
 
-export interface IGroupPosts {
+export interface GroupPosts {
   countBookmarks: number;
   countComments: number;
   countLikes: number;
   countReposts: number;
   id: number;
   lastRedactionDate: Date;
-  media: IMedia[];
+  media: Media[];
   persistDate: Date;
-  tags: ITag[];
+  tags: Tag[];
   text: string;
   title: string;
 }
 
-export interface IGroupRequestProps {
+export interface GroupRequestProps {
   userId: number;
   groupId: number;
 }
-export interface IGroupUser {
+export interface GroupUser {
   userId: number;
   firstName: string;
   lastName: string;
@@ -63,11 +64,11 @@ export interface IGroupUser {
   linkSite: string;
   roleName: string;
   status: string;
-  activeName: string
+  activeName: string;
 }
-export interface IGroupStateProps {
+export interface GroupStateProps {
   groups:
-    { groups: IGroup[];
+    { groups: Group[];
       memberOf: number[];
       loading: boolean;
       error: Error; };
@@ -75,17 +76,17 @@ export interface IGroupStateProps {
 
 // Single group types
 
-interface Icomment {
+export interface Comment {
   avatar: string;
   author: string;
   date: Date;
   text: string;
 }
 
-export interface ICommentData {
-  data: Icomment[];
+export interface CommentData {
+  data: Comment[];
 }
-export interface ICommentsListProps {
+export interface CommentsListProps {
   data: {
     author: string;
     date: Date;
@@ -93,7 +94,7 @@ export interface ICommentsListProps {
   };
 }
 
-export interface IGroupHeaderData {
+export interface GroupHeaderData {
   data: {
     description: string;
     groupCategory: string;
@@ -107,38 +108,38 @@ export interface IGroupHeaderData {
   };
 }
 
-export interface INewsData {
+export interface NewsData {
   countBookmarks: number;
   countComments: number;
   countLikes: number;
   countReposts: number;
   id: number;
   lastRedactionDate: Date;
-  media: IMedia[];
+  media: Media[];
   persistDate: Date;
-  tags: ITag[];
+  tags: Tag[];
   text: string;
   title: string;
   addressImageGroup: string;
   groupName: string;
 }
 
-export interface IStore {
+export interface Store {
   user: {
     data: IUser;
     error: Error;
     loading: boolean;
   };
   groups: {
-    groups: IGroup[];
+    groups: Group[];
     memberOf: number[];
     error: Error | null;
     loading: boolean;
-  }
+  };
   singleGroup: {
-    groupInfo: IFullGroupInfo;
-    posts: IGroupPosts[];
+    groupInfo: FullGroupInfo;
+    posts: GroupPosts[];
     error: Error;
     loading: boolean;
-  }
+  };
 }

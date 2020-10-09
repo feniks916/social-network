@@ -11,13 +11,13 @@ import more from '../../img/icons/more.svg';
 import moreUp from '../../img/icons/moreUp.svg';
 import { mockMediaImages } from './mockData';
 import 'swiper/swiper-bundle.css';
-import { INewsData } from '../../types/group';
+import { NewsData } from '../../types/group';
 
 interface Inews2 {
-  item: INewsData;
+  item: NewsData;
 }
 
-const NewsItem : React.FC<Inews2> = ({
+const NewsItem: React.FC<Inews2> = ({
   item: { title,
     addressImageGroup,
     groupName,
@@ -32,11 +32,11 @@ const NewsItem : React.FC<Inews2> = ({
     countComments,
     countReposts },
 
-}) : ReactElement => {
+}): ReactElement => {
   const allowedProps = { isSelected: false };
   const [isOpen, setIsOpen] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
-  const handleModal = (target : any) => {
+  const handleModal = (target: any): void => {
     if (target.src) {
       if (target.src === imgUrl) {
         setIsOpen(false);
@@ -72,7 +72,7 @@ const NewsItem : React.FC<Inews2> = ({
 
     switch (el.mediaType) {
       case 'IMAGE':
-        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt : React.MouseEvent<HTMLElement>) => handleModal(evt.target)} {...allowedProps} />;
+        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt: React.MouseEvent<HTMLElement>): void => handleModal(evt.target)} {...allowedProps} />;
       case 'VIDEO':
         return (
           <NewsVideo title={el.url} key={keyCount} src={el.url} width="560" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
@@ -139,7 +139,7 @@ const NewsItem : React.FC<Inews2> = ({
         <ButtonMore>
           <MoreIcon
             src={isFullContent ? moreUp : more}
-            onClick={() => setFullContent(!isFullContent)}
+            onClick={(): void => setFullContent(!isFullContent)}
           />
         </ButtonMore>
       </WrapperContent>

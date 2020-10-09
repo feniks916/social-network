@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import groupController from '../services/groups-controller';
-import { IGroup, IGroupUser, IGroupRequestProps } from '../types/group';
+import { Group, GroupUser, GroupRequestProps } from '../types/group';
 
 const loadGroups = createAsyncThunk('groups/loadGroups', async (page: number) => {
   const response = await groupController.apiGroups(page);
@@ -12,32 +12,32 @@ const loadGroupInfo = createAsyncThunk('groups/loadGroupInfo', async (id: number
   return response;
 });
 
-const joinGroup = createAsyncThunk('groups/joinGroup', async (props : IGroupRequestProps) => {
+const joinGroup = createAsyncThunk('groups/joinGroup', async (props: GroupRequestProps) => {
   const response = await groupController.apiJoinGroup(props);
   return [response, props.groupId];
 });
 
-const leaveGroup = createAsyncThunk('groups/leaveGroup', async (props : IGroupRequestProps) => {
+const leaveGroup = createAsyncThunk('groups/leaveGroup', async (props: GroupRequestProps) => {
   const response = await groupController.apiLeaveGroup(props);
   return [response, props.groupId];
 });
 
-const loadAllUsers = createAsyncThunk('groups/loadUsers', async (props : IGroupRequestProps) => {
+const loadAllUsers = createAsyncThunk('groups/loadUsers', async (props: GroupRequestProps) => {
   const response = await groupController.apiLoadUsers(props);
   // Переделать когда появится возможность сразу получать все группы юзера
-  const res = response.some((element : IGroupUser) => element.userId === props.userId);
+  const res = response.some((element: GroupUser) => element.userId === props.userId);
   if (res) { return props.groupId; }
   return null;
 });
 
-interface groups {
-  groups: IGroup[];
+interface Groups {
+  groups: Group[];
   memberOf: number[];
   error: null | Error;
   loading: boolean;
 }
 
-const initialState: groups = {
+const initialState: Groups = {
   groups: [],
   memberOf: [],
   error: null,
@@ -97,7 +97,7 @@ const groupsSlice = createSlice({
     [loadAllUsers.pending.type]: (state) => ({ ...state, loading: true }),
     [loadAllUsers.fulfilled.type]: (state, action) => {
       // Переделать когда появится возможность сразу получать все группы юзера
-      if (state.memberOf.some((element : number) => (element === action.payload))) {
+      if (state.memberOf.some((element: number) => (element === action.payload))) {
         return { ...state,
           loading: false };
       }

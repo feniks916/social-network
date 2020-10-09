@@ -5,7 +5,7 @@ import submit from '../../img/icons/submit.svg';
 import more from '../../img/icons/more.svg';
 // import moreUp from './moreUp.svg';
 
-const InputComment: React.FC = () : ReactElement => (
+const InputComment: React.FC = (): ReactElement => (
   <Container>
     <AvatarContainer>
       <AvatarImg src={avatar} alt="Aватар" />

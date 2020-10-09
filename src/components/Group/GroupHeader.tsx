@@ -1,16 +1,16 @@
 import React, { ReactElement } from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
-import { IGroupHeaderData } from '../../types/group';
+import { GroupHeaderData } from '../../types/group';
 
-const GroupHeader : React.FC<IGroupHeaderData> = ({
+const GroupHeader: React.FC<GroupHeaderData> = ({
   data: {
     description,
     linkSite,
     ownerFio,
     persistDate,
   },
-}) : ReactElement => {
+}): ReactElement => {
   const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
   return (
     <NavbarWrapper>

@@ -5,12 +5,12 @@ import SingleGroup from './SingleGroup';
 import testAvatarka from '../../img/test-group-avatar.svg';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import { loadGroups, joinGroup, loadAllUsers } from '../../redux-toolkit/groupsSlice';
-import { IGroup, IGroupRequestProps } from '../../types/group';
+import { Group, GroupRequestProps } from '../../types/group';
 
 interface GroupsProps {
   loadGroups: (page: number, size: number) => void;
-  loadAllUsers: (props : IGroupRequestProps) => void;
-  groups: IGroup[];
+  loadAllUsers: (props: GroupRequestProps) => void;
+  groups: Group[];
   // loading: boolean;
   // error: Error;
 }
@@ -25,21 +25,23 @@ const Groups: React.FC<GroupsProps> = ({
   const currentUserId = 4;
   useEffect(() => {
     _loadGroups(1, 15);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    groups.forEach((element : IGroup) => _loadAllUsers({ userId: currentUserId,
+    groups.forEach((element: Group) => _loadAllUsers({ userId: currentUserId,
       groupId: element.id }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups]);
   const [groupName, setGroupName] = useState<string>('');
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setGroupName(value.toLowerCase());
   };
 
-  const filterGroups = (data: IGroup[]) => data.filter((el) => el.name.toLowerCase()
+  const filterGroups = (data: Group[]): Group[] => data.filter((el) => el.name.toLowerCase()
     .includes(groupName));
 
-  const renderGroups = (data: IGroup[]) => data.map((el : IGroup) => {
+  const renderGroups = (data: Group[]): JSX.Element[] => data.map((el: Group) => {
     const {
       addressImageGroup = testAvatarka, name, groupCategory, subscribers, id,
     } = el;
@@ -65,7 +67,7 @@ const Groups: React.FC<GroupsProps> = ({
 
 const mapStateToProps = (state:
   { groups:
-    { groups: IGroup[];
+    { groups: Group[];
       memberOf: number[];
       loading: boolean;
       error: Error; }; }) => ({

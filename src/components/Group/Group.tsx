@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect } from 'react';
 import { withRouter, useParams, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { IStore } from '../../types/group';
+import { Store, GroupPosts } from '../../types/group';
 import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
 import Comments from './Comments';
@@ -10,7 +10,6 @@ import InputComment from './InputComment';
 import { mockData } from './mockData';
 import photogroup from '../../img/icons/photogroup.svg';
 import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/singleGroupSlice';
-import { IGroupPosts } from '../../types/group';
 
 interface Inews {
   id: number;
@@ -43,13 +42,13 @@ interface Idata {
 }
 
 interface RouteParams {
-  slug: string
+  slug: string;
 }
 interface MyComponent extends RouteComponentProps<RouteParams> {
   loadGroupInfo: (id: string) => void;
   loadGroupPosts: (id: string) => void;
   groupInfo: any;
-  posts: IGroupPosts[];
+  posts: GroupPosts[];
   loading: boolean;
   error: any;
 }
@@ -57,17 +56,16 @@ interface MyComponent extends RouteComponentProps<RouteParams> {
 //   loadGroupInfo: (id: string) => void;
 //   loadGroupPosts: (id: string) => void;
 //   groupInfo: any;
-//   posts: IGroupPosts[];
+//   posts: GroupPosts[];
 //   loading: boolean;
 //   error: any;
 // }
-
 
 const Group = ({ loadGroupInfo: _loadGroupInfo,
   loadGroupPosts: _loadGroupPosts,
   loading,
   groupInfo,
-  posts } : any) : ReactElement => {
+  posts }: any): ReactElement => {
   const params = useParams<RouteParams>();
   const { slug } = params;
   let { addressImageGroup } = groupInfo;
@@ -86,12 +84,13 @@ const Group = ({ loadGroupInfo: _loadGroupInfo,
   if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
     addressImageGroup = photogroup;
   }
-  const postsUpg = posts.map((element: IGroupPosts) => ({ ...element,
+  const postsUpg = posts.map((element: GroupPosts) => ({ ...element,
     addressImageGroup,
     groupName: name }));
   useEffect(() => {
     _loadGroupInfo(slug);
     _loadGroupPosts(slug);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { comments }: Idata = mockData;
   return (
@@ -200,7 +199,7 @@ const Category = styled.div`
   text-align: left;
 `;
 
-const mapStateToProps = (state: IStore) => ({
+const mapStateToProps = (state: Store) => ({
   groupInfo: state.singleGroup.groupInfo,
   posts: state.singleGroup.posts,
   loading: state.singleGroup.loading,
