@@ -94,18 +94,51 @@ export interface CommentsListProps {
   };
 }
 
+interface News {
+  id: number;
+  title: string;
+  img: string;
+  text: string;
+  tags: string[];
+  author: string;
+  time: string;
+  favoritesCount: number;
+  likesCount: number;
+  commentsCount: number;
+  repostsCount: number;
+}
+
+export interface GroupCommentsData {
+  data: {
+    date: Date;
+    description: string;
+    link: string;
+    owner: string;
+    news: News[];
+  };
+  comments: Comment[];
+}
+
 export interface GroupHeaderData {
   data: {
     description: string;
-    groupCategory: string;
-    id: string;
-    lastRedactionDate: string;
     linkSite: string;
-    name: string;
     ownerFio: string;
     persistDate: string;
-    subscribers: number;
   };
+}
+
+export interface GroupInt {
+  addressImageGroup: string;
+  name: string;
+  groupCategory: string;
+  subscribers: number;
+  id: number;
+  description: string;
+  linkSite: string;
+  ownerFio: string;
+  persistDate: string;
+  lastRedactionDate: string;
 }
 
 export interface NewsData {
@@ -142,4 +175,8 @@ export interface Store {
     error: Error;
     loading: boolean;
   };
+}
+
+export interface NewsProps {
+  item: NewsData;
 }

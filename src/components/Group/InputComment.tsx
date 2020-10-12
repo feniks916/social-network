@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import avatar from '../../img/icons/mock-avatar.svg';
 import submit from '../../img/icons/submit.svg';
 import more from '../../img/icons/more.svg';
 // import moreUp from './moreUp.svg';
 
-const InputComment: React.FC = (): ReactElement => (
+const InputComment: React.FC = () => (
   <Container>
     <AvatarContainer>
       <AvatarImg src={avatar} alt="Aватар" />

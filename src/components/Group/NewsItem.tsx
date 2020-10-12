@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { format } from 'date-fns';
 import styled from 'styled-components';
@@ -11,13 +10,9 @@ import more from '../../img/icons/more.svg';
 import moreUp from '../../img/icons/moreUp.svg';
 import { mockMediaImages } from './mockData';
 import 'swiper/swiper-bundle.css';
-import { NewsData } from '../../types/group';
+import { NewsProps } from '../../types/group';
 
-interface Inews2 {
-  item: NewsData;
-}
-
-const NewsItem: React.FC<Inews2> = ({
+const NewsItem: React.FC<NewsProps> = ({
   item: { title,
     addressImageGroup,
     groupName,
@@ -32,17 +27,26 @@ const NewsItem: React.FC<Inews2> = ({
     countComments,
     countReposts },
 
-}): ReactElement => {
+}) => {
   const allowedProps = { isSelected: false };
   const [isOpen, setIsOpen] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
-  const handleModal = (target: any): void => {
-    if (target.src) {
-      if (target.src === imgUrl) {
+
+  interface KonvaTextEventTarget extends EventTarget {
+    src: string;
+  }
+
+  interface KonvaMouseEvent extends React.MouseEvent<HTMLElement> {
+    src: string;
+  }
+
+  const handleModal = (target?: string | null): void => {
+    if (target) {
+      if (target === imgUrl) {
         setIsOpen(false);
         setImgUrl('');
       } else {
-        setImgUrl(target.src);
+        setImgUrl(target);
         setIsOpen(true);
       }
     } else {
@@ -72,7 +76,7 @@ const NewsItem: React.FC<Inews2> = ({
 
     switch (el.mediaType) {
       case 'IMAGE':
-        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt: React.MouseEvent<HTMLElement>): void => handleModal(evt.target)} {...allowedProps} />;
+        return <NewsImageMin key={keyCount} src={el.url} alt="" onClick={(evt: React.MouseEvent<HTMLElement>): void => handleModal(evt.currentTarget.getAttribute('src'))} {...allowedProps} />;
       case 'VIDEO':
         return (
           <NewsVideo title={el.url} key={keyCount} src={el.url} width="560" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
@@ -131,7 +135,7 @@ const NewsItem: React.FC<Inews2> = ({
       <WrapperContent>
         <NewsContentContainer>
           <MediaContainer>
-            {isOpen && <MaxImg src={imgUrl} alt="no" onClick={handleModal} />}
+            {isOpen && <MaxImg src={imgUrl} alt="no" onClick={(): void => handleModal()} />}
             {listMedia}
           </MediaContainer>
           <NewsContent style={{ height }}>{text}</NewsContent>

@@ -43,13 +43,10 @@ const App: React.FC<Props> = ({ loadCurrentUser: _loadCurrentUser }) => {
       <Route path={routes.photo} component={Photo} />
       <Route path={routes.groups} component={Groups} />
       <Route
-      path={routes.group}
-      exact
-      render={({ match }) => {
-        const { slug } = match.params;
-        return <Group />;
-      }}
-    />
+        path={routes.group}
+        exact
+        component={Group}
+      />
     </Switch>
   );
 };

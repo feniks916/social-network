@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Group from './Group';
 import PageWrapper from '../../common/pageWrapper';
 
-const WrappedGroup: React.FC = (): ReactElement => (
+const WrappedGroup: React.FC = () => (
   <PageWrapper>
     <Group />
   </PageWrapper>

@@ -1,14 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import groupController from '../services/groups-controller';
-import { Group, GroupUser, GroupRequestProps } from '../types/group';
+import groupController from '../../services/groups-controller/groups-controller';
+import { Group, GroupUser, GroupRequestProps } from '../../types/group';
 
 const loadGroups = createAsyncThunk('groups/loadGroups', async (page: number) => {
   const response = await groupController.apiGroups(page);
-  return response;
-});
-
-const loadGroupInfo = createAsyncThunk('groups/loadGroupInfo', async (id: number) => {
-  const response = await groupController.apiGroupInfo(id);
   return response;
 });
 
@@ -47,55 +42,55 @@ const groupsSlice = createSlice({
   name: 'groups',
   initialState,
   reducers: {
-    getGroups: (state, action) => ({
+    getGroups: (state, action): Groups => ({
       ...state,
       groups: action.payload,
     }),
-    getAllUsers: (state, action) => ({
+    getAllUsers: (state, action): Groups => ({
       ...state,
       memberOf: action.payload,
     }),
-    _joinGroup: (state) => ({
+    _joinGroup: (state): Groups => ({
       ...state,
     }),
-    _leaveGroup: (state) => ({
+    _leaveGroup: (state): Groups => ({
       ...state,
     }),
 
   },
   extraReducers: {
-    [loadGroups.pending.type]: (state) => ({ ...state, loading: true }),
-    [loadGroups.fulfilled.type]: (state, action) => ({
+    [loadGroups.pending.type]: (state): Groups => ({ ...state, loading: true }),
+    [loadGroups.fulfilled.type]: (state, action): Groups => ({
       ...state,
       groups: action.payload,
       loading: false,
     }),
-    [loadGroups.rejected.type]: (state, action) => ({
+    [loadGroups.rejected.type]: (state, action): Groups => ({
       ...state,
       error: action.error,
       loading: false,
     }),
 
-    [joinGroup.pending.type]: (state) => ({ ...state, loading: true }),
-    [joinGroup.fulfilled.type]: (state, action) => ({ ...state,
+    [joinGroup.pending.type]: (state): Groups => ({ ...state, loading: true }),
+    [joinGroup.fulfilled.type]: (state, action): Groups => ({ ...state,
       memberOf: [...state.memberOf, action.payload[1]],
       loading: false }),
-    [joinGroup.rejected.type]: (state, action) => ({ ...state,
+    [joinGroup.rejected.type]: (state, action): Groups => ({ ...state,
       error: action.error,
       loading: false }),
 
-    [leaveGroup.pending.type]: (state) => ({ ...state, loading: true }),
-    [leaveGroup.fulfilled.type]: (state, action) => {
+    [leaveGroup.pending.type]: (state): Groups => ({ ...state, loading: true }),
+    [leaveGroup.fulfilled.type]: (state, action): Groups => {
       const tempArr = [...state.memberOf];
       tempArr.splice(tempArr.indexOf(action.payload[1]), 1);
       return { ...state, memberOf: tempArr, loading: false };
     },
-    [leaveGroup.rejected.type]: (state, action) => ({ ...state,
+    [leaveGroup.rejected.type]: (state, action): Groups => ({ ...state,
       error: action.error,
       loading: false }),
 
-    [loadAllUsers.pending.type]: (state) => ({ ...state, loading: true }),
-    [loadAllUsers.fulfilled.type]: (state, action) => {
+    [loadAllUsers.pending.type]: (state): Groups => ({ ...state, loading: true }),
+    [loadAllUsers.fulfilled.type]: (state, action): Groups => {
       // Переделать когда появится возможность сразу получать все группы юзера
       if (state.memberOf.some((element: number) => (element === action.payload))) {
         return { ...state,
@@ -107,7 +102,7 @@ const groupsSlice = createSlice({
       return { ...state,
         loading: false };
     },
-    [loadAllUsers.rejected.type]: (state, action) => ({
+    [loadAllUsers.rejected.type]: (state, action): Groups => ({
       ...state,
       error: action.error,
       loading: false,
@@ -116,6 +111,6 @@ const groupsSlice = createSlice({
 });
 
 export const { getGroups, _joinGroup, _leaveGroup, getAllUsers } = groupsSlice.actions;
-export { loadGroups, loadGroupInfo, joinGroup, leaveGroup, loadAllUsers };
-
+// export { loadGroups, loadGroupInfo, joinGroup, leaveGroup, loadAllUsers };
+export { loadGroups, joinGroup, leaveGroup, loadAllUsers };
 export const groupsReducer = groupsSlice.reducer;

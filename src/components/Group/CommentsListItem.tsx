@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
-import React, { ReactElement } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { CommentsListProps } from '../../types/group';
 import avatar from '../../img/icons/mock-avatar.svg';
 
 const CommentsList: React.FC<CommentsListProps> = ({ data:
-  { author, date, text } }): ReactElement => (
+  { author, date, text } }) => (
     <Container>
       <AvatarContainer>
         <AvatarImg src={avatar} alt="Aватар" />

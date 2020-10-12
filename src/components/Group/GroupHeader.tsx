@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import { GroupHeaderData } from '../../types/group';
@@ -10,7 +10,7 @@ const GroupHeader: React.FC<GroupHeaderData> = ({
     ownerFio,
     persistDate,
   },
-}): ReactElement => {
+}) => {
   const originDate = format(new Date(persistDate), "dd.MM.yyyy' в 'HH:mm");
   return (
     <NavbarWrapper>

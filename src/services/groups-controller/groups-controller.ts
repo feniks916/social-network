@@ -1,4 +1,4 @@
-import { Group, FullGroupInfo, GroupPosts, GroupRequestProps, GroupUser } from '../types/group';
+import { Group, FullGroupInfo, GroupPosts, GroupRequestProps, GroupUser } from '../../types/group';
 // const local = "http://localhost:3000/";
 const web = 'http://91.241.64.178:5561/';
 
@@ -22,11 +22,11 @@ export default class {
     return this.fetching(`api/groups/all?page=${page}&size=${size}`);
   }
 
-  static async apiGroupInfo(id: number, page = 1, size = 15): Promise<GroupPosts[]> {
+  static async apiGroupInfo(id: string, page = 1, size = 15): Promise<GroupPosts[]> {
     return this.fetching(`api/groups/${id}/posts?page=${page}&size=${size}`);
   }
 
-  static async apiSingleGroup(id: number): Promise<FullGroupInfo> {
+  static async apiSingleGroup(id: string): Promise<FullGroupInfo> {
     return this.fetching(`api/groups/${id}`);
   }
 

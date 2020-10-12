@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SingleGroup from './SingleGroup';
 import PageSearchInput from '../../common/Inputs/PageSearch';
 import { RootState } from '../../redux-toolkit/store';
-import { loadGroups, joinGroup, loadAllUsers } from '../../redux-toolkit/groupsSlice';
+import { loadGroups, joinGroup, loadAllUsers } from '../../redux-toolkit/groups/groupsSlice';
 import { Group, GroupRequestProps } from '../../types/group';
 
 interface StateProps {

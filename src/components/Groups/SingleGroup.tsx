@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState } from '../../redux-toolkit/store';
-import { joinGroup, leaveGroup } from '../../redux-toolkit/groupsSlice';
+import { joinGroup, leaveGroup } from '../../redux-toolkit/groups/groupsSlice';
 import { Group, GroupRequestProps } from '../../types/group';
 
 interface StateProps {

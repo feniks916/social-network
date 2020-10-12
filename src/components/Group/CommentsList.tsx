@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
-import React, { ReactElement } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { CommentData, Comment } from '../../types/group';
 import CommentsListItem from './CommentsListItem';
 
-const CommentsList: React.FC<CommentData> = ({ data }): ReactElement => (
+const CommentsList: React.FC<CommentData> = ({ data }) => (
   <Container>
     {data.map((item: Comment) => (
       <CommentsListItem

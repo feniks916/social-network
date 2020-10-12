@@ -1,124 +1,100 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter, useParams, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Store, GroupPosts } from '../../types/group';
+import { GroupPosts, GroupInt, GroupCommentsData } from '../../types/group';
+import LoadingBlock from '../../common/loadingBlock';
 import GroupHeader from './GroupHeader';
 import NewsList from './NewsList';
 import Comments from './Comments';
 import InputComment from './InputComment';
 import { mockData } from './mockData';
+import { RootState } from '../../redux-toolkit/store';
 import photogroup from '../../img/icons/photogroup.svg';
-import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/singleGroupSlice';
 
-interface Inews {
-  id: number;
-  title: string;
-  img: string;
-  text: string;
-  tags: string[];
-  author: string;
-  time: string;
-  favoritesCount: number;
-  likesCount: number;
-  commentsCount: number;
-  repostsCount: number;
+import { loadGroupInfo, loadGroupPosts } from '../../redux-toolkit/groups/singleGroupSlice';
+
+interface StateProps {
+  groupInfo: GroupInt | null;
+  posts: GroupPosts[] | null;
+  loading: boolean;
 }
-interface Icomment {
-  avatar: string;
-  author: string;
-  date: Date;
-  text: string;
+interface DispatchProps {
+  loadGroupInfo: (id: string) => void;
+  loadGroupPosts: (id: string) => void;
 }
-interface Idata {
-  data: {
-    date: Date;
-    description: string;
-    link: string;
-    owner: string;
-    news: Inews[];
-  };
-  comments: Icomment[];
-}
+type Props = StateProps & DispatchProps & RouteComponentProps;
 
 interface RouteParams {
   slug: string;
 }
-interface MyComponent extends RouteComponentProps<RouteParams> {
-  loadGroupInfo: (id: string) => void;
-  loadGroupPosts: (id: string) => void;
-  groupInfo: any;
-  posts: GroupPosts[];
-  loading: boolean;
-  error: any;
-}
-// interface GroupProps {
-//   loadGroupInfo: (id: string) => void;
-//   loadGroupPosts: (id: string) => void;
-//   groupInfo: any;
-//   posts: GroupPosts[];
-//   loading: boolean;
-//   error: any;
-// }
 
-const Group = ({ loadGroupInfo: _loadGroupInfo,
+const mapStateToProps = (state: RootState): StateProps => ({
+  groupInfo: state.singleGroup.groupInfo,
+  posts: state.singleGroup.posts,
+  loading: state.singleGroup.loading,
+});
+
+const mapDispatchToProps = {
+  loadGroupInfo,
+  loadGroupPosts,
+};
+
+const Group: React.FC<Props> = ({ loadGroupInfo: _loadGroupInfo,
   loadGroupPosts: _loadGroupPosts,
   loading,
   groupInfo,
-  posts }: any): ReactElement => {
+  posts }) => {
   const params = useParams<RouteParams>();
   const { slug } = params;
-  let { addressImageGroup } = groupInfo;
-  const {
-    // description,
-    groupCategory,
-    // id,
-    // lastRedactionDate,
-    // linkSite,
-    name,
-    // ownerFio,
-    // persistDate,
-    // subscribers
-  } = groupInfo;
 
-  if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
-    addressImageGroup = photogroup;
-  }
-  const postsUpg = posts.map((element: GroupPosts) => ({ ...element,
-    addressImageGroup,
-    groupName: name }));
   useEffect(() => {
     _loadGroupInfo(slug);
     _loadGroupPosts(slug);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { comments }: Idata = mockData;
-  return (
-    <Wrapper>
-      {(loading || groupInfo.length === 0) ? <h1>LOADING</h1> : (
-        <Container>
-          <Label>
-            <GroupIco>
-              <Img src={addressImageGroup} alt="Фото группы" />
-            </GroupIco>
-            <DataContainer>
-              <NameGroup>{name}</NameGroup>
-              <Category>
-                Категория:
-                {' '}
-                {groupCategory}
-              </Category>
-            </DataContainer>
-          </Label>
-          <GroupHeader data={groupInfo} />
-          <NewsList news={postsUpg} />
-          <Comments data={comments} />
-          <InputComment />
-        </Container>
-      )}
+  const { comments }: GroupCommentsData = mockData;
+  if (posts && groupInfo) {
+    let { addressImageGroup } = groupInfo;
+    const {
+      groupCategory,
+      name,
+    } = groupInfo;
+    if (addressImageGroup === `This is a address of the group #${Number(slug) - 1}`) {
+      addressImageGroup = photogroup;
+    }
+    const postsUpg = posts.map((element: GroupPosts) => ({ ...element,
+      addressImageGroup,
+      groupName: name }));
 
-    </Wrapper>
-  );
+    return (
+      <Wrapper>
+        {(loading) ? <LoadingBlock /> : (
+          <Container>
+            <Label>
+              <GroupIco>
+                <Img src={addressImageGroup} alt="Фото группы" />
+              </GroupIco>
+              <DataContainer>
+                <NameGroup>{name}</NameGroup>
+                <Category>
+                  Категория:
+                  {' '}
+                  {groupCategory}
+                </Category>
+              </DataContainer>
+            </Label>
+            <GroupHeader data={groupInfo} />
+            <NewsList news={postsUpg} />
+            <Comments data={comments} />
+            <InputComment />
+          </Container>
+        )}
+
+      </Wrapper>
+    );
+  }
+  return null;
 };
 
 const Wrapper = styled.div`
@@ -198,17 +174,5 @@ const Category = styled.div`
   color: #b2b2b2;
   text-align: left;
 `;
-
-const mapStateToProps = (state: Store) => ({
-  groupInfo: state.singleGroup.groupInfo,
-  posts: state.singleGroup.posts,
-  loading: state.singleGroup.loading,
-  error: state.singleGroup.error,
-});
-
-const mapDispatchToProps = {
-  loadGroupInfo,
-  loadGroupPosts,
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Group));
