@@ -1,61 +1,72 @@
-import React, { useState, useEffect, ReactElement } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import SingleGroup from './SingleGroup';
-import testAvatarka from '../../img/test-group-avatar.svg';
 import PageSearchInput from '../../common/Inputs/PageSearch';
+import { RootState } from '../../redux-toolkit/store';
 import { loadGroups, joinGroup, loadAllUsers } from '../../redux-toolkit/groupsSlice';
 import { Group, GroupRequestProps } from '../../types/group';
 
-interface GroupsProps {
+interface StateProps {
+  groups: Group[];
+  loading: boolean;
+  error: Error | null;
+}
+interface DispatchProps {
   loadGroups: (page: number, size: number) => void;
   loadAllUsers: (props: GroupRequestProps) => void;
-  groups: Group[];
-  // loading: boolean;
-  // error: Error;
 }
+type Props = StateProps & DispatchProps;
 
-const Groups: React.FC<GroupsProps> = ({
+const mapStateToProps = (state: RootState): StateProps => ({
+  groups: state.groups.groups,
+  loading: state.groups.loading,
+  error: state.groups.error,
+});
+const mapDispatchToProps = {
+  loadGroups,
+  joinGroup,
+  loadAllUsers,
+};
+
+const Groups: React.FC<Props> = ({
   loadGroups: _loadGroups,
   // loading,
   // error,
   groups,
   loadAllUsers: _loadAllUsers,
-}): ReactElement => {
+}) => {
+  // temp
   const currentUserId = 4;
+
   useEffect(() => {
     _loadGroups(1, 15);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     groups.forEach((element: Group) => _loadAllUsers({ userId: currentUserId,
       groupId: element.id }));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups]);
+
   const [groupName, setGroupName] = useState<string>('');
+
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setGroupName(value.toLowerCase());
   };
 
-  const filterGroups = (data: Group[]): Group[] => data.filter((el) => el.name.toLowerCase()
-    .includes(groupName));
+  const filterGroups = (data: Group[]): Group[] => data.filter(
+    (el) => el.name.toLowerCase().includes(groupName),
+  );
 
-  const renderGroups = (data: Group[]): JSX.Element[] => data.map((el: Group) => {
-    const {
-      addressImageGroup = testAvatarka, name, groupCategory, subscribers, id,
-    } = el;
-    return (
-      <SingleGroup
-        key={el.id}
-        avatar={addressImageGroup}
-        name={name}
-        category={groupCategory}
-        followers={subscribers}
-        id={id}
-      />
-    );
-  });
+  const renderGroups = (data: Group[]): JSX.Element[] => data.map((el: Group) => (
+    <SingleGroup
+      key={el.id}
+      groupInfo={el}
+    />
+  ));
   return (
     <GroupsContainer>
       <PageSearchInput placeholder="Начните поиск группы..." action={handleInput} />
@@ -63,24 +74,6 @@ const Groups: React.FC<GroupsProps> = ({
       {groupName.length > 0 ? renderGroups(filterGroups(groups)) : renderGroups(groups)}
     </GroupsContainer>
   );
-};
-
-const mapStateToProps = (state:
-  { groups:
-    { groups: Group[];
-      memberOf: number[];
-      loading: boolean;
-      error: Error; }; }) => ({
-  groups: state.groups.groups,
-  memberOf: state.groups.memberOf,
-  loading: state.groups.loading,
-  error: state.groups.error,
-});
-
-const mapDispatchToProps = {
-  loadGroups,
-  joinGroup,
-  loadAllUsers,
 };
 
 export const GroupsContainer = styled.div`

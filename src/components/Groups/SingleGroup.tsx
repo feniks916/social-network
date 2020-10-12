@@ -1,43 +1,56 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { loadGroups, joinGroup, leaveGroup } from '../../redux-toolkit/groupsSlice';
-import { GroupStateProps } from '../../types/group';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { RootState } from '../../redux-toolkit/store';
+import { joinGroup, leaveGroup } from '../../redux-toolkit/groupsSlice';
+import { Group, GroupRequestProps } from '../../types/group';
 
-// interface SingleGroupProps {
-//   avatar: string;
-//   name: string;
-//   category: string;
-//   followers: number;
-//   history: any;
-//   id: number;
-//   memberOf: number[];
-//   joinGroup: (props : IGroupRequestProps) => void;
-//   leaveGroup: (props : IGroupRequestProps) => void;
-// }
-const SingleGroup = ({
-  avatar,
-  name,
-  category,
-  followers,
-  history,
-  id,
+interface StateProps {
+  memberOf: number[];
+}
+interface DispatchProps {
+  joinGroup: (props: GroupRequestProps) => void;
+  leaveGroup: (props: GroupRequestProps) => void;
+}
+interface OwnProps {
+  groupInfo: Group;
+}
+type Props = StateProps & DispatchProps & OwnProps & RouteComponentProps;
+
+const mapStateToProps = (state: RootState): StateProps => ({
+  memberOf: state.groups.memberOf,
+});
+
+const mapDispatchToProps = {
+  joinGroup,
+  leaveGroup,
+};
+
+const SingleGroup: React.FC<Props> = ({
+  groupInfo: {
+    addressImageGroup,
+    name,
+    groupCategory,
+    subscribers,
+    id,
+  },
   joinGroup: _joinGroup,
   leaveGroup: _leaveGroup,
   memberOf,
-}: any): ReactElement => (
+  history,
+}) => (
   <SingleGroupContainer>
     <LeftWrapper>
-      <GroupAvatar src={avatar} alt="avatar" />
+      <GroupAvatar src={addressImageGroup} alt="avatar" />
       <GroupDescriptionContainer>
         <GroupTitle>
 
           <ItemLink onClick={(): void => history.push(`/group/${id}`)}>{name}</ItemLink>
         </GroupTitle>
-        <GroupCategory>{category}</GroupCategory>
+        <GroupCategory>{groupCategory}</GroupCategory>
         <GroupFollowers>
-          {followers}
+          {subscribers}
           {' '}
           подписчиков
           {' '}
@@ -143,16 +156,4 @@ const UnFollowButton = styled.button`
   }
 `;
 
-const mapStateToProps = (state: GroupStateProps) => ({
-  groups: state.groups.groups,
-  memberOf: state.groups.memberOf,
-  loading: state.groups.loading,
-  error: state.groups.error,
-});
-
-const mapDispatchToProps = {
-  loadGroups,
-  joinGroup,
-  leaveGroup,
-};
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SingleGroup));
